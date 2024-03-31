@@ -7,6 +7,7 @@ export default {
                 gdpt: "#007c3d",
                 gdptHover: "#006030",
                 gdptBackground: "#09723D",
+                grayish: "#eaeef7",
             },
         },
     },
