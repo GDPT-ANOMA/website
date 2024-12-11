@@ -80,21 +80,23 @@ const currentPath = Astro.url.pathname;
     const mobileMenu = document.getElementById("mobile-menu");
     const menuContainer = document.getElementById("mobile-menu-container");
 
-    hamburger.addEventListener("click", function () {
-        hamburger.classList.toggle("is-active");
+    if (hamburger && mobileMenu && menuContainer) {
+        hamburger.addEventListener("click", function () {
+            hamburger.classList.toggle("is-active");
 
-        if (mobileMenu.classList.contains("hidden")) {
-            mobileMenu.classList.remove("hidden");
-            mobileMenu.classList.add("flex");
-            menuContainer.style.maxHeight = "500px"; // Adjust this value for your expanded menu height
-        } else {
-            menuContainer.style.maxHeight = "80px"; // Original height of the menu
-            setTimeout(() => {
-                mobileMenu.classList.add("hidden");
-                mobileMenu.classList.remove("flex");
-            }, 300); // Matches the duration of the CSS transition
-        }
-    });
+            if (mobileMenu.classList.contains("hidden")) {
+                mobileMenu.classList.remove("hidden");
+                mobileMenu.classList.add("flex");
+                menuContainer.style.maxHeight = "500px"; // Adjust this value for your expanded menu height
+            } else {
+                menuContainer.style.maxHeight = "80px"; // Original height of the menu
+                setTimeout(() => {
+                    mobileMenu.classList.add("hidden");
+                    mobileMenu.classList.remove("flex");
+                }, 300); // Matches the duration of the CSS transition
+            }
+        });
+    }
 </script>
 
 <style>
