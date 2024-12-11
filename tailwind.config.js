@@ -8,6 +8,9 @@ export default {
                 gdptHover: "#006030",
                 gdptBackground: "#09723D",
                 grayish: "#eaeef7",
+
+                grayBackground: "#262626",
+                textColor: "#e5e5e5",
             },
         },
     },

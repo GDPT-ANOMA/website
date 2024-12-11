@@ -1,49 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import BlogPosts from "../components/default/BlogPosts.astro";
-import GoogleCalendar from "../components/react/Calendar";
+
+import Navigation from "../components/default/Navigation.astro";
 const CALENDAR_API_KEY = import.meta.env.CALENDAR_API_KEY;
 ---
 
 <Layout title="GĐPT Anôma" class="">
-    <div class="grid grid-cols-2 grid-flow-row gap-y-5 gap-x-4 auto-rows-max">
-        <!-- Announcements -->
-        <div class="col-span-2">
-            <div class="bg-white min-h-[40rem] max-h-[40rem] rounded-3xl">
-                <div
-                    class="pt-8 text-[3rem] font-bold text-gdpt justify-center items-center text-center"
-                >
-                    Announcements:
-                </div>
-                <div class="flex max-w-full items-center justify-center my-4">
-                    <div class="w-[90%] rounded-lg p-4">
-                        <GoogleCalendar
-                            client:load
-                            CALENDAR_API_KEY={CALENDAR_API_KEY}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Calendar -->
-        <div class="flex min-h-[40rem] min-w-full max-w-full max-h-[40rem]">
-            <div
-                class="bg-white min-h-[40rem] min-w-full max-h-[40rem] max-w-[40rem] rounded-3xl w-1/2"
-            >
-                <div
-                    class="pt-8 text-[3rem] font-bold text-gdpt justify-center items-center text-center"
-                >
-                    Upcoming Events:
-                </div>
-                <div class="flex max-w-full items-center justify-center my-4">
-                    <div class="w-[90%] rounded-lg p-4">
-                        <GoogleCalendar
-                            client:load
-                            CALENDAR_API_KEY={CALENDAR_API_KEY}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <Navigation />
 </Layout>
