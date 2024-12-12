@@ -4,10 +4,10 @@ This is the official website for GĐPT Anôma, built with modern web technologie
 
 ## 💻 Tech Stack
 
--   [Astro](https://astro.build/) - The web framework for content-driven websites
--   [React](https://reactjs.org/) - For interactive components
--   [Tailwind CSS](https://tailwindcss.com/) - For styling
--   [TypeScript](https://www.typescriptlang.org/) - For type safety
+- [Astro](https://astro.build/) - The web framework for content-driven websites
+- [React](https://reactjs.org/) - For interactive components
+- [Tailwind CSS](https://tailwindcss.com/) - For styling
+- [TypeScript](https://www.typescriptlang.org/) - For type safety
 
 ## 🧞 Commands
 

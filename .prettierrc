@@ -3,8 +3,6 @@
         "prettier-plugin-astro",
         "prettier-plugin-tailwindcss"
     ],
-    "pluginSearchDirs": false,
-    "tabWidth": 4,
-    "useTabs": true
+    "pluginSearchDirs": false
 }
 

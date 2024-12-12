@@ -1,27 +1,27 @@
 [
-    {
-        "name": "Overview",
-        "url": "/",
-        "icon": "fa-solid:home"
-    },
-    {
-        "name": "About Us",
-        "url": "/about",
-        "icon": "mdi:about-circle-outline"
-    },
-    {
-        "name": "Blog Posts",
-        "url": "/posts",
-        "icon": "material-symbols:post-rounded"
-    },
-    {
-        "name": "Our Team",
-        "url": "/team",
-        "icon": "ri:team-fill"
-    },
-    {
-        "name": "Contact Us",
-        "url": "/contact",
-        "icon": "material-symbols:mail"
-    }
+  {
+    "name": "Overview",
+    "url": "/",
+    "icon": "fa-solid:home"
+  },
+  {
+    "name": "About Us",
+    "url": "/about",
+    "icon": "mdi:about-circle-outline"
+  },
+  {
+    "name": "Blog Posts",
+    "url": "/posts",
+    "icon": "material-symbols:post-rounded"
+  },
+  {
+    "name": "Our Team",
+    "url": "/team",
+    "icon": "ri:team-fill"
+  },
+  {
+    "name": "Contact Us",
+    "url": "/contact",
+    "icon": "material-symbols:mail"
+  }
 ]
