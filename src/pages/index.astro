@@ -1,10 +1,33 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
+import Calendar from "../components/react/Calendar.jsx";
 import Navigation from "../components/default/Navigation.astro";
 const CALENDAR_API_KEY = import.meta.env.CALENDAR_API_KEY;
 ---
 
 <Layout title="GĐPT Anôma" class="">
-    <Navigation />
+    <div class="dark-container rounded-3xl flex justify-center items-center">
+        <div class="calendar-wrapper w-full aspect-[16/9]">
+            <iframe
+                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FLos_Angeles&mode=AGENDA&showNav=0&showTz=0&showCalendars=0&showTabs=0&showPrint=0&showTitle=0&showDate=0&src=Z2RwdGFub21hQGdtYWlsLmNvbQ&color=%23EF6C00"
+                style="border-width:0"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                scrolling="no"></iframe>
+        </div>
+    </div>
 </Layout>
+<style>
+    .dark-container {
+        filter: invert(0.9) hue-rotate(180deg) brightness(0.9) saturate(0.8);
+
+        overflow: hidden;
+        border: none;
+    }
+
+    /* Re-invert the images to maintain their original colors */
+    .dark-container img {
+        filter: invert(1) hue-rotate(180deg);
+    }
+</style>
