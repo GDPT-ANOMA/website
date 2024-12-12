@@ -2,6 +2,7 @@
 import navigationTabs from "../data/navigationTabs.json";
 import { Icon } from "astro-icon/components";
 import "../styles/hamburgers.css";
+import Navigation from "../components/default/Navigation.astro";
 interface Props {
     title: string;
     class: string;
@@ -42,7 +43,8 @@ const { title, class: className } = Astro.props;
         class="bg-grayBackground max-w-screen-2xl px-4 sm:px-6 lg:px-8 mx-auto"
     >
         <!-- Main Body -->
-        <main class="my-4 mx-4">
+        <Navigation />
+        <main class="my-4 mx-2 pt-8">
             <slot />
         </main>
     </body>
