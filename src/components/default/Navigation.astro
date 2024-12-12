@@ -9,11 +9,9 @@ const currentPath = Astro.url.pathname;
 <div class="flex justify-center sticky top-4 z-50">
     <div
         id="mobile-menu-container"
-        class="flex flex-col mx-2 rounded-[36rem] max-h-[80px] min-h-[80px] px-6 w-full transition-all duration-300 ease-in-out overflow-hidden border-neutral-700 border backdrop-blur-md"
+        class="flex flex-col mx-2 rounded-[36rem] max-h-[80px] min-h-[80px] px-6 w-full transition-all duration-300 ease-in-out overflow-hidden border-neutral-700 border backdrop-blur-md justify-center"
     >
-        <div
-            class="flex items-center justify-between sticky lg:top-4 top-2 w-full"
-        >
+        <div class="flex items-center justify-between sticky w-full">
             <div class="flex items-center gap-4">
                 <Image
                     src="/logos/gdpt.svg"
@@ -41,7 +39,7 @@ const currentPath = Astro.url.pathname;
                     ))
                 }
             </div>
-            <div class="lg:hidden flex items-center mt-1">
+            <div class="lg:hidden flex items-center">
                 <button
                     class="hamburger hamburger--collapse"
                     color="#FFFFFF"
@@ -55,7 +53,7 @@ const currentPath = Astro.url.pathname;
         </div>
         <div
             id="mobile-menu"
-            class="flex-col items-center gap-4 mt-4 space-y-4 hidden lg:hidden mb-4"
+            class="flex-col items-center gap-4 my-4 space-y-4 hidden lg:hidden"
         >
             {
                 navigationTabs.map((tab) => (
@@ -64,7 +62,7 @@ const currentPath = Astro.url.pathname;
                         class={`text-lg font-bold ${
                             currentPath === tab.url
                                 ? "text-gdpt"
-                                : "text-textColor"
+                                : "text-textColor hover:text-neutral-400"
                         }`}
                     >
                         {tab.name}
@@ -87,13 +85,13 @@ const currentPath = Astro.url.pathname;
             if (mobileMenu.classList.contains("hidden")) {
                 mobileMenu.classList.remove("hidden");
                 mobileMenu.classList.add("flex");
-                menuContainer.style.maxHeight = "500px"; // Adjust this value for your expanded menu height
+                menuContainer.style.maxHeight = "500px";
             } else {
-                menuContainer.style.maxHeight = "80px"; // Original height of the menu
+                menuContainer.style.maxHeight = "80px";
                 setTimeout(() => {
                     mobileMenu.classList.add("hidden");
                     mobileMenu.classList.remove("flex");
-                }, 300); // Matches the duration of the CSS transition
+                }, 300);
             }
         });
     }
