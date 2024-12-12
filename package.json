@@ -7,7 +7,8 @@
         "start": "node ./dist/server/entry.mjs",
         "build": "astro check && astro build",
         "preview": "astro preview",
-        "astro": "astro"
+        "astro": "astro",
+        "format": "prettier --write --plugin-search-dir=. **/*.{cjs,mjs,ts,md,json,astro,css} --ignore-path .gitignore"
     },
     "dependencies": {
         "@astrojs/check": "^0.9.4",
@@ -27,6 +28,9 @@
         "@iconify-json/material-symbols": "^1.2.10",
         "@iconify-json/mdi": "^1.2.1",
         "@iconify-json/ri": "^1.2.3",
-        "astro-icon": "^1.1.4"
+        "astro-icon": "^1.1.4",
+        "prettier": "^3.4.2",
+        "prettier-plugin-astro": "^0.14.1",
+        "prettier-plugin-tailwindcss": "^0.6.9"
     }
 }
