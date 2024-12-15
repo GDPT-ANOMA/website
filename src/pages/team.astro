@@ -73,13 +73,15 @@ const roles = Object.keys(groupedTeam);
                                 <div class="flex justify-center w-full">
                                     <Image
                                         src={
-                                            member.image ||
-                                            "https://placehold.co/400x400?text=No+Image"
+                                            member.image &&
+                                            member.image.length > 0
+                                                ? member.image
+                                                : "https://placehold.co/400x400?text=No+Image"
                                         }
                                         alt={member.name}
-                                        width={120}
-                                        height={120}
-                                        class="rounded-full"
+                                        width={200}
+                                        height={200}
+                                        class="rounded-3xl"
                                         style={{
                                             aspectRatio: "1/1",
                                             objectFit: "cover",

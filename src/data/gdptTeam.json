@@ -3,30 +3,30 @@
         "name": "Anh Hiep",
         "role": "Huyen Truong",
         "bio": "Something here",
-        "image": "/images/team/anh-hiep.jpg"
+        "image": ""
     },
     {
         "name": "Chi Mai",
         "role": "Huyen Truong",
         "bio": "Something hereomething hereomething hereomething hereomething hereomething hereomething hereomething hereomething here",
-        "image": "/images/team/chi-mai.jpg"
+        "image": ""
     },
     {
         "name": "Charles Nguyen",
         "role": "Huyen Truong",
         "bio": "Something here",
-        "image": "/images/team/charles-nguyen.jpg"
+        "image": ""
     },
     {
         "name": "Bob the Builder",
         "role": "Huyen Truong",
         "bio": "Something here",
-        "image": "/images/team/julianne-tran.jpg"
+        "image": ""
     },
     {
         "name": "Caitlyn Nguyen",
         "role": "Thieu",
         "bio": "Something here",
-        "image": "/images/team/caitlyn-nguyen.jpg"
+        "image": ""
     }
 ]
