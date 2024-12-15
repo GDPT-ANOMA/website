@@ -8,7 +8,7 @@ const currentPath = Astro.url.pathname;
 <div class="flex justify-center sticky top-4 z-50">
     <div
         id="mobile-menu-container"
-        class="flex flex-col mx-2 rounded-[36rem] h-[80px] px-6 w-full transition-all duration-300 ease-in-out border-neutral-700 border backdrop-blur-md"
+        class="flex flex-col mx-2 rounded-[36rem] h-[80px] px-6 w-full transition-all duration-300 ease-in-out border-neutral-100 border backdrop-blur-lg text-textColor-700 uppercase font-bold"
     >
         <div
             class="flex items-center justify-between w-full h-[80px] flex-shrink-0"
@@ -20,9 +20,9 @@ const currentPath = Astro.url.pathname;
                     width={50}
                     height={50}
                 />
-                <span class="text-textColor text-2xl font-bold">GDPT ANÔMA</span
-                >
+                <span class="text-2xl font-bold">GDPT ANÔMA</span>
             </div>
+
             <div class="items-center gap-6 hidden lg:flex">
                 {
                     navigationTabs.map((tab) => (
@@ -30,8 +30,8 @@ const currentPath = Astro.url.pathname;
                             href={tab.url}
                             class={`text-lg font-bold ${
                                 currentPath === tab.url
-                                    ? "text-gdpt"
-                                    : "text-textColor hover:text-neutral-400"
+                                    ? "text-gdpt-500"
+                                    : " hover:text-neutral-400"
                             }`}
                         >
                             {tab.name}
@@ -53,7 +53,7 @@ const currentPath = Astro.url.pathname;
         </div>
         <div
             id="mobile-menu"
-            class="flex-col items-center gap-4 py-4 space-y-4 hidden lg:hidden h-0 opacity-0"
+            class="flex-col items-center gap-4 pb-4 space-y-4 hidden lg:hidden h-0 opacity-0"
         >
             {
                 navigationTabs.map((tab) => (
@@ -62,7 +62,7 @@ const currentPath = Astro.url.pathname;
                         class={`text-lg font-bold ${
                             currentPath === tab.url
                                 ? "text-gdpt"
-                                : "text-textColor hover:text-neutral-400"
+                                : " hover:text-neutral-400"
                         }`}
                     >
                         {tab.name}
