@@ -1,0 +1,76 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+---
+
+<Layout title="Contact Us" class="">
+    <div
+        class="w-full flex rounded-3xl py-4 justify-center items-center bg-white/90"
+    >
+        <Card className="container   border-none ">
+            <CardHeader>
+                <h2 class="text-3xl font-bold text-center">Contact Us</h2>
+                <p class="text-muted-foreground text-center">
+                    Fill out the form below and we'll get back to you as soon as
+                    possible.
+                </p>
+            </CardHeader>
+            <CardContent>
+                <form
+                    class="space-y-6"
+                    method="POST"
+                    action="https://formsubmit.co/8aa551094d91090150ed1ba06200b4d4"
+                    enctype="multipart/form-data"
+                >
+                    <input type="hidden" name="_template" value="table" />
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <Label htmlFor="firstName">First name</Label>
+                            <Input id="firstName" name="firstName" required />
+                        </div>
+                        <div class="space-y-2">
+                            <Label htmlFor="lastName">Last name</Label>
+                            <Input id="lastName" name="lastName" required />
+                        </div>
+                    </div>
+
+                    <div>
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                            type="email"
+                            id="email"
+                            name="email"
+                            type="email"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <Label htmlFor="subject">Subject</Label>
+                        <Input id="subject" name="subject" required />
+                    </div>
+
+                    <div>
+                        <Label htmlFor="message">Message</Label>
+                        <Textarea
+                            id="message"
+                            name="message"
+                            rows={5}
+                            required
+                        />
+                    </div>
+
+                    <Button
+                        type="submit"
+                        className="bg-gdpt-500 hover:bg-gdpt-400 text-white rounded-[6px] w-full"
+                        >Submit Form</Button
+                    >
+                </form>
+            </CardContent>
+        </Card>
+    </div>
+</Layout>
