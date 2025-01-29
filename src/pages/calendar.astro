@@ -2,23 +2,13 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-const calendarEvents = await getCollection('calendar');
 ---
 
-<Layout title="Calendar Events">
+<Layout title="Calendar Events" class="">
   <h1>Calendar Events</h1>
   
   <div class="events">
-    {(calendarEvents as CalendarEvent[]).map(event => (
-      <div class="event">
-        <h2>{event.data.summary}</h2>
-        {event.data.description && <p>{event.data.description}</p>}
-        <p>
-          Start: {new Date(event.data.start.dateTime || event.data.start.date || '').toLocaleString()}
-        </p>
-        {event.data.location && <p>Location: {event.data.location}</p>}
-      </div>
-    ))}
+    
   </div>
 </Layout>
 
