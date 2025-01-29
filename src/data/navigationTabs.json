@@ -10,11 +10,6 @@
     "icon": "mdi:about-circle-outline"
   },
   {
-    "name": "Blog Posts",
-    "url": "/posts",
-    "icon": "material-symbols:post-rounded"
-  },
-  {
     "name": "Our Team",
     "url": "/team",
     "icon": "ri:team-fill"

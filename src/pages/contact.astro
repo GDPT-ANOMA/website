@@ -1,76 +1,160 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
 ---
 
 <Layout title="Contact Us" class="">
-    <div
-        class="w-full flex rounded-3xl py-4 justify-center items-center bg-white/90"
-    >
-        <Card className="container   border-none ">
-            <CardHeader>
-                <h2 class="text-3xl font-bold text-center">Contact Us</h2>
-                <p class="text-muted-foreground text-center">
-                    Fill out the form below and we'll get back to you as soon as
-                    possible.
-                </p>
-            </CardHeader>
-            <CardContent>
-                <form
-                    class="space-y-6"
-                    method="POST"
-                    action="https://formsubmit.co/8aa551094d91090150ed1ba06200b4d4"
-                    enctype="multipart/form-data"
-                >
-                    <input type="hidden" name="_template" value="table" />
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="space-y-2">
-                            <Label htmlFor="firstName">First name</Label>
-                            <Input id="firstName" name="firstName" required />
-                        </div>
-                        <div class="space-y-2">
-                            <Label htmlFor="lastName">Last name</Label>
-                            <Input id="lastName" name="lastName" required />
-                        </div>
-                    </div>
+    <div class="w-full flex items-center justify-center">
+        <div class="w-full bg-white rounded-2xl shadow-lg p-8 md:p-12">
+            <h1 class="text-4xl font-bold mb-2 text-center text-neutral-900">Contact Us</h1>
+            <p class="text-neutral-600 text-center mb-8">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            
+            <form id="contactForm" class="space-y-8">
+                <div id="formAlert" class="alert hidden mb-4">
+                    <span id="alertMessage"></span>
+                </div>
 
-                    <div>
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                            type="email"
-                            id="email"
-                            name="email"
-                            type="email"
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- First Name -->
+                    <div class="form-control w-full">
+                        <label class="label pb-1">
+                            <span class="label-text text-neutral-900 font-medium">First Name</span>
+                        </label>
+                        <input 
+                            name="firstName"
+                            type="text" 
+                            placeholder="Enter your first name" 
+                            class="input input-bordered w-full bg-white text-neutral-900 placeholder:text-neutral-500 border-2 focus:border-gdpt focus:ring-2 focus:ring-gdpt/20 transition-all" 
                             required
                         />
                     </div>
 
-                    <div>
-                        <Label htmlFor="subject">Subject</Label>
-                        <Input id="subject" name="subject" required />
-                    </div>
-
-                    <div>
-                        <Label htmlFor="message">Message</Label>
-                        <Textarea
-                            id="message"
-                            name="message"
-                            rows={5}
+                    <!-- Last Name -->
+                    <div class="form-control w-full">
+                        <label class="label pb-1">
+                            <span class="label-text text-neutral-900 font-medium">Last Name</span>
+                        </label>
+                        <input 
+                            name="lastName"
+                            type="text" 
+                            placeholder="Enter your last name" 
+                            class="input input-bordered w-full bg-white text-neutral-900 placeholder:text-neutral-500 border-2 focus:border-gdpt focus:ring-2 focus:ring-gdpt/20 transition-all" 
                             required
                         />
                     </div>
+                </div>
 
-                    <Button
-                        type="submit"
-                        className="bg-gdpt-500 hover:bg-gdpt-400 text-white rounded-[6px] w-full"
-                        >Submit Form</Button
+                <!-- Email -->
+                <div class="form-control w-full">
+                    <label class="label pb-1">
+                        <span class="label-text text-neutral-900 font-medium">Email</span>
+                    </label>
+                    <input 
+                        name="email"
+                        type="email" 
+                        placeholder="Enter your email" 
+                        class="input input-bordered w-full bg-white text-neutral-900 placeholder:text-neutral-500 border-2 focus:border-gdpt focus:ring-2 focus:ring-gdpt/20 transition-all" 
+                        required
+                    />
+                </div>
+
+                <!-- Subject -->
+                <div class="form-control w-full">
+                    <label class="label pb-1">
+                        <span class="label-text text-neutral-900 font-medium">Subject</span>
+                    </label>
+                    <input 
+                        name="subject"
+                        type="text" 
+                        placeholder="Enter subject" 
+                        class="input input-bordered w-full bg-white text-neutral-900 placeholder:text-neutral-500 border-2 focus:border-gdpt focus:ring-2 focus:ring-gdpt/20 transition-all" 
+                        required
+                    />
+                </div>
+
+                <!-- Message -->
+                <div class="form-control w-full">
+                    <label class="label pb-1">
+                        <span class="label-text text-neutral-900 font-medium">Message</span>
+                    </label>
+                    <textarea 
+                        name="message"
+                        class="textarea textarea-bordered h-32 bg-white text-neutral-900 placeholder:text-neutral-500 border-2 focus:border-gdpt focus:ring-2 focus:ring-gdpt/20 transition-all" 
+                        placeholder="Enter your message"
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-center pt-4">
+                    <button 
+                        type="submit" 
+                        id="submitButton"
+                        class="btn bg-gdpt hover:bg-gdptHover text-white min-w-[200px] border-none"
                     >
-                </form>
-            </CardContent>
-        </Card>
+                        <span id="submitText">Send Message</span>
+                        <span id="loadingSpinner" class="loading loading-spinner hidden"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </Layout>
+
+<script>
+    const form = document.getElementById('contactForm') as HTMLFormElement;
+    const submitButton = document.getElementById('submitButton') as HTMLButtonElement;
+    const submitText = document.getElementById('submitText') as HTMLSpanElement;
+    const loadingSpinner = document.getElementById('loadingSpinner') as HTMLSpanElement;
+    const formAlert = document.getElementById('formAlert') as HTMLDivElement;
+    const alertMessage = document.getElementById('alertMessage') as HTMLSpanElement;
+
+    const showAlert = (message: string, type: 'success' | 'error') => {
+        formAlert.className = `alert ${type === 'success' ? 'alert-success' : 'alert-error'} mb-4`;
+        alertMessage.textContent = message;
+        formAlert.classList.remove('hidden');
+    };
+
+    const setLoading = (loading: boolean) => {
+        submitButton.disabled = loading;
+        submitText.classList.toggle('hidden', loading);
+        loadingSpinner.classList.toggle('hidden', !loading);
+    };
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        formAlert.classList.add('hidden');
+        setLoading(true);
+
+        try {
+            const formData = new FormData(form);
+            const data = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName'),
+                email: formData.get('email'),
+                subject: formData.get('subject'),
+                message: formData.get('message')
+            };
+
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                showAlert('Message sent successfully! We will get back to you soon.', 'success');
+                form.reset();
+            } else {
+                throw new Error(result.message || 'Failed to send message');
+            }
+        } catch (error) {
+            showAlert(error instanceof Error ? error.message : 'Failed to send message', 'error');
+        } finally {
+            setLoading(false);
+        }
+    });
+</script>

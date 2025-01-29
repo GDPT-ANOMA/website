@@ -2,21 +2,116 @@
 import Layout from "../layouts/Layout.astro";
 import Calendar from "../components/react/Calendar.jsx";
 import Navigation from "../components/default/Navigation.astro";
+import { Icon as AstroIcon } from "astro-icon/components";
 const CALENDAR_API_KEY = import.meta.env.CALENDAR_API_KEY;
 ---
 
 <Layout title="GĐPT Anôma" class="">
-    <div class="dark-container rounded-3xl flex justify-center items-center">
-        <div class="calendar-wrapper w-full aspect-[16/9]">
-            <iframe
-                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FLos_Angeles&mode=AGENDA&showNav=0&showTz=0&showCalendars=0&showTabs=0&showPrint=0&showTitle=0&showDate=0&src=Z2RwdGFub21hQGdtYWlsLmNvbQ&color=%23EF6C00"
-                style="border-width:0 "
-                width="100%"
-                height="100%"
-                frameborder="0"
-                scrolling="no"
-                class="rounded-2xl"></iframe>
+        <!-- Hero Section -->
+    <div class="hero min-h-[70vh] bg-gdpt text-white rounded-t-3xl">
+            <div class="hero-content text-center">
+                <div class="max-w-3xl">
+                    <h1 class="text-5xl font-bold mb-8">GĐPT Anôma</h1>
+
+                    <p class="text-xl mb-8">Nurturing Buddhist values and personal development for the younger generation</p>
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                        <a href="/contact" 
+                           class="btn btn-lg glass text-white border-2 border-white hover:bg-white hover:text-gdpt hover:scale-105 transition-all duration-300 shadow-lg w-full sm:w-auto">
+                            <AstroIcon name="fa-solid:user-plus" class="w-5 h-5 mr-2" />
+                            Join Us
+                        </a>
+                        <a href="/about" 
+                           class="btn btn-lg btn-ghost text-white hover:bg-white/20 hover:scale-105 transition-all duration-300 w-full sm:w-auto">
+                            <AstroIcon name="fa-solid:info-circle" class="w-5 h-5 mr-2" />
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+
+        <!-- Features Section -->
+    <div class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Our Activities</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card bg-white shadow-xl">
+                        <div class="card-body items-center text-center">
+                            <div class="w-16 h-16 mb-4">
+                                <AstroIcon name="fa-solid:dharmachakra" class="w-full h-full text-gdpt" />
+                            </div>
+                            <h3 class="card-title">Buddhist Teachings</h3>
+                            <p>Learn and practice Buddhist teachings in daily life</p>
+                        </div>
+                    </div>
+                <div class="card bg-white shadow-xl">
+                        <div class="card-body items-center text-center">
+                            <div class="w-16 h-16 mb-4">
+                                <AstroIcon name="fa-solid:users" class="w-full h-full text-gdpt" />
+                            </div>
+                            <h3 class="card-title">Group Activities</h3>
+                            <p>Engaging activities for learning and developing life skills</p>
+                        </div>
+                    </div>
+                <div class="card bg-white shadow-xl">
+                        <div class="card-body items-center text-center">
+                            <div class="w-16 h-16 mb-4">
+                                <AstroIcon name="fa-solid:heart" class="w-full h-full text-gdpt" />
+                            </div>
+                            <h3 class="card-title">Community Service</h3>
+                            <p>Participate in volunteer work and community service</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar Section -->
+    <div class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Activity Calendar</h2>
+            <div class="card bg-white shadow-xl">
+                    <div class="card-body p-2">
+                        <div class="calendar-wrapper w-full aspect-[16/9]">
+                            <iframe
+                                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FLos_Angeles&mode=AGENDA&showNav=0&showTz=0&showCalendars=0&showTabs=0&showPrint=0&showTitle=0&showDate=0&src=Z2RwdGFub21hQGdtYWlsLmNvbQ&color=%23EF6C00"
+                                style="border-width:0"
+                                width="100%"
+                                height="100%"
+                                frameborder="0"
+                                scrolling="no"
+                                class="rounded-xl">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="bg-gradient-to-br from-gdpt to-gdpt-600 text-white py-24 rounded-b-[3rem] relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('/hero-bg.jpg')] opacity-10 bg-cover bg-center"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-gdpt/90 to-gdpt-600/90"></div>
+            <div class="container mx-auto px-4 text-center relative z-10">
+                <h2 class="text-4xl font-bold mb-8 tracking-tight">Join Our Community</h2>
+                <p class="mb-12 max-w-2xl mx-auto text-lg text-gray-100 leading-relaxed">
+                    We welcome young people and families who want to learn about Buddhism and participate in GĐPT Anôma activities
+                </p>
+                <div class="flex gap-4 justify-center">
+                    <a href="/contact" 
+                       class="btn btn-lg glass text-white border-2 border-white hover:bg-white hover:text-gdpt hover:scale-105 transition-all duration-300 shadow-lg">
+                        <AstroIcon name="fa-solid:envelope" class="w-5 h-5 mr-2" />
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
 </Layout>
-<style></style>
+
+<style>
+    .hero {
+        background-image: linear-gradient(rgba(0, 124, 61, 0.9), rgba(0, 124, 61, 0.9)), url('/hero-bg.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+</style>
