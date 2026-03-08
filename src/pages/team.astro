@@ -68,7 +68,7 @@ const roles = Object.keys(groupedTeam);
                     <div class="team-section mt-16 hidden" data-role={role}>
                         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                             {members.map((member) => (
-                                <div class="card bg-white shadow-lg hover:shadow-2xl transition-all duration-500 group rounded-xl">
+                                <div class="ui-card bg-white shadow-lg hover:shadow-2xl transition-all duration-500 group rounded-xl">
                                     <figure class="px-4 pt-4">
                                         <Image
                                             src={
@@ -87,8 +87,8 @@ const roles = Object.keys(groupedTeam);
                                             }}
                                         />
                                     </figure>
-                                    <div class="card-body items-center text-center px-4 py-6">
-                                        <h3 class="card-title text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gdpt-600 to-gdpt-800 group-hover:from-gdpt group-hover:to-gdpt-700 transition-all duration-300">
+                                    <div class="ui-card-body items-center text-center px-4 py-6">
+                                        <h3 class="ui-card-title text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gdpt-600 to-gdpt-800 group-hover:from-gdpt group-hover:to-gdpt-700 transition-all duration-300">
                                             {member.name}
                                         </h3>
                                     </div>
@@ -104,11 +104,20 @@ const roles = Object.keys(groupedTeam);
 
 <style>
     .role-tab {
-        @apply bg-white text-gray-700 border-2 border-gray-200 hover:border-gdpt hover:text-gdpt;
+        background-color: #fff;
+        color: #374151;
+        border: 2px solid #e5e7eb;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
+    .role-tab:hover {
+        border-color: #007c3d;
+        color: #007c3d;
+    }
     .role-tab.active {
-        @apply bg-gdpt border-gdpt text-white shadow-lg;
+        background-color: #007c3d;
+        border-color: #007c3d;
+        color: #fff;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
     }
     .team-section {
         opacity: 0;

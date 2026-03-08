@@ -12,21 +12,21 @@ import Layout from "../layouts/Layout.astro";
                 </h1>
             </div>
             
-            <div class="card bg-base-100 shadow-xl p-6 backdrop-blur-sm bg-white/30">
+            <div class="ui-card p-6 backdrop-blur-sm bg-white/30">
                 <p class="text-lg text-gray-600">
                     We couldn't find the page you were looking for. It might have been moved, deleted, or never existed in the first place.
                 </p>
                 
-                <div class="divider"></div>
+                <div class="my-6 h-px w-full bg-border/80"></div>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="/" class="btn btn-primary bg-gdpt-500 hover:bg-gdpt-400 border-none rounded-full gap-2">
+                    <a href="/" class="ui-btn ui-btn-primary rounded-full px-5 py-2.5 gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                         </svg>
                         Return Home
                     </a>
-                    <button onclick="history.back()" class="btn btn-outline rounded-full gap-2">
+                    <button onclick="history.back()" class="ui-btn ui-btn-outline rounded-full px-5 py-2.5 gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
                         </svg>

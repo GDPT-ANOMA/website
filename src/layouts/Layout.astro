@@ -1,6 +1,7 @@
 ---
 import navigationTabs from "../data/navigationTabs.json";
 import { Icon } from "astro-icon/components";
+import "../styles/global.css";
 import "../styles/hamburgers.css";
 import Navigation from "../components/default/Navigation.astro";
 interface Props {
@@ -14,7 +15,6 @@ const { title, class: className } = Astro.props;
 <!doctype html>
 <html lang="en">
     <head>
-        <link href="../styles/hamburgers.css" rel="stylesheet" />
         <meta charset="UTF-8" />
         <meta name="description" content="A website for GĐPT Anôma" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

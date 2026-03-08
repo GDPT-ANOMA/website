@@ -9,76 +9,76 @@ import Layout from "../layouts/Layout.astro";
             <p class="text-neutral-600 text-center mb-8">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
             
             <form id="contactForm" class="space-y-8">
-                <div id="formAlert" class="alert hidden mb-4">
+                <div id="formAlert" class="hidden mb-4 rounded-md border px-4 py-3 text-sm">
                     <span id="alertMessage"></span>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- First Name -->
-                    <div class="form-control w-full">
-                        <label class="label pb-1">
-                            <span class="label-text text-neutral-900 font-medium">First Name</span>
+                    <div class="w-full space-y-2">
+                        <label class="ui-label pb-1">
+                            First Name
                         </label>
                         <input 
                             name="firstName"
                             type="text" 
                             placeholder="Enter your first name" 
-                            class="input input-bordered w-full bg-white text-neutral-900 placeholder:text-neutral-500 border-2 focus:border-gdpt focus:ring-2 focus:ring-gdpt/20 transition-all" 
+                            class="ui-input w-full border-2" 
                             required
                         />
                     </div>
 
                     <!-- Last Name -->
-                    <div class="form-control w-full">
-                        <label class="label pb-1">
-                            <span class="label-text text-neutral-900 font-medium">Last Name</span>
+                    <div class="w-full space-y-2">
+                        <label class="ui-label pb-1">
+                            Last Name
                         </label>
                         <input 
                             name="lastName"
                             type="text" 
                             placeholder="Enter your last name" 
-                            class="input input-bordered w-full bg-white text-neutral-900 placeholder:text-neutral-500 border-2 focus:border-gdpt focus:ring-2 focus:ring-gdpt/20 transition-all" 
+                            class="ui-input w-full border-2" 
                             required
                         />
                     </div>
                 </div>
 
                 <!-- Email -->
-                <div class="form-control w-full">
-                    <label class="label pb-1">
-                        <span class="label-text text-neutral-900 font-medium">Email</span>
+                <div class="w-full space-y-2">
+                    <label class="ui-label pb-1">
+                        Email
                     </label>
                     <input 
                         name="email"
                         type="email" 
                         placeholder="Enter your email" 
-                        class="input input-bordered w-full bg-white text-neutral-900 placeholder:text-neutral-500 border-2 focus:border-gdpt focus:ring-2 focus:ring-gdpt/20 transition-all" 
+                        class="ui-input w-full border-2" 
                         required
                     />
                 </div>
 
                 <!-- Subject -->
-                <div class="form-control w-full">
-                    <label class="label pb-1">
-                        <span class="label-text text-neutral-900 font-medium">Subject</span>
+                <div class="w-full space-y-2">
+                    <label class="ui-label pb-1">
+                        Subject
                     </label>
                     <input 
                         name="subject"
                         type="text" 
                         placeholder="Enter subject" 
-                        class="input input-bordered w-full bg-white text-neutral-900 placeholder:text-neutral-500 border-2 focus:border-gdpt focus:ring-2 focus:ring-gdpt/20 transition-all" 
+                        class="ui-input w-full border-2" 
                         required
                     />
                 </div>
 
                 <!-- Message -->
-                <div class="form-control w-full">
-                    <label class="label pb-1">
-                        <span class="label-text text-neutral-900 font-medium">Message</span>
+                <div class="w-full space-y-2">
+                    <label class="ui-label pb-1">
+                        Message
                     </label>
                     <textarea 
                         name="message"
-                        class="textarea textarea-bordered h-32 bg-white text-neutral-900 placeholder:text-neutral-500 border-2 focus:border-gdpt focus:ring-2 focus:ring-gdpt/20 transition-all" 
+                        class="ui-textarea h-32 border-2" 
                         placeholder="Enter your message"
                         required
                     ></textarea>
@@ -89,10 +89,10 @@ import Layout from "../layouts/Layout.astro";
                     <button 
                         type="submit" 
                         id="submitButton"
-                        class="btn bg-gdpt hover:bg-gdptHover text-white min-w-[200px] border-none"
+                        class="ui-btn ui-btn-primary h-11 min-w-[200px] rounded-md"
                     >
                         <span id="submitText">Send Message</span>
-                        <span id="loadingSpinner" class="loading loading-spinner hidden"></span>
+                        <span id="loadingSpinner" class="ui-spinner hidden"></span>
                     </button>
                 </div>
             </form>
@@ -109,9 +109,8 @@ import Layout from "../layouts/Layout.astro";
     const alertMessage = document.getElementById('alertMessage') as HTMLSpanElement;
 
     const showAlert = (message: string, type: 'success' | 'error') => {
-        formAlert.className = `alert ${type === 'success' ? 'alert-success' : 'alert-error'} mb-4`;
+        formAlert.className = `mb-4 rounded-md border px-4 py-3 text-sm ${type === 'success' ? 'border-green-500/30 bg-green-500/10 text-green-700' : 'border-red-500/30 bg-red-500/10 text-red-700'}`;
         alertMessage.textContent = message;
-        formAlert.classList.remove('hidden');
     };
 
     const setLoading = (loading: boolean) => {
@@ -122,7 +121,7 @@ import Layout from "../layouts/Layout.astro";
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        formAlert.classList.add('hidden');
+        formAlert.className = 'hidden mb-4 rounded-md border px-4 py-3 text-sm';
         setLoading(true);
 
         try {

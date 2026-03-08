@@ -8,20 +8,20 @@ const CALENDAR_API_KEY = import.meta.env.CALENDAR_API_KEY;
 
 <Layout title="GĐPT Anôma" class="">
         <!-- Hero Section -->
-    <div class="hero min-h-[70vh] bg-gdpt text-white rounded-t-3xl">
-            <div class="hero-content text-center">
+    <div class="hero min-h-[70vh] bg-gdpt text-white rounded-t-3xl flex items-center">
+            <div class="container mx-auto px-4 text-center">
                 <div class="max-w-3xl">
                     <h1 class="text-5xl font-bold mb-8">GĐPT Anôma</h1>
 
                     <p class="text-xl mb-8">Nurturing Buddhist values and personal development for the younger generation</p>
                     <div class="flex flex-col sm:flex-row gap-6 justify-center">
                         <a href="/contact" 
-                           class="btn btn-lg glass text-white border-2 border-white hover:bg-white hover:text-gdpt hover:scale-105 transition-all duration-300 shadow-lg w-full sm:w-auto">
+                           class="ui-btn ui-btn-lg ui-btn-primary border-2 border-white/70 hover:bg-white hover:text-gdpt hover:scale-105 w-full sm:w-auto">
                             <AstroIcon name="fa-solid:user-plus" class="w-5 h-5 mr-2" />
                             Join Us
                         </a>
                         <a href="/about" 
-                           class="btn btn-lg btn-ghost text-white hover:bg-white/20 hover:scale-105 transition-all duration-300 w-full sm:w-auto">
+                           class="ui-btn ui-btn-lg ui-btn-ghost border-2 border-white/20 hover:scale-105 w-full sm:w-auto">
                             <AstroIcon name="fa-solid:info-circle" class="w-5 h-5 mr-2" />
                             Learn More
                         </a>
@@ -35,30 +35,30 @@ const CALENDAR_API_KEY = import.meta.env.CALENDAR_API_KEY;
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center mb-12">Our Activities</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="card bg-white shadow-xl">
-                        <div class="card-body items-center text-center">
+                <div class="ui-card bg-white">
+                        <div class="ui-card-body items-center text-center">
                             <div class="w-16 h-16 mb-4">
                                 <AstroIcon name="fa-solid:dharmachakra" class="w-full h-full text-gdpt" />
                             </div>
-                            <h3 class="card-title">Buddhist Teachings</h3>
+                            <h3 class="ui-card-title">Buddhist Teachings</h3>
                             <p>Learn and practice Buddhist teachings in daily life</p>
                         </div>
                     </div>
-                <div class="card bg-white shadow-xl">
-                        <div class="card-body items-center text-center">
+                <div class="ui-card bg-white">
+                        <div class="ui-card-body items-center text-center">
                             <div class="w-16 h-16 mb-4">
                                 <AstroIcon name="fa-solid:users" class="w-full h-full text-gdpt" />
                             </div>
-                            <h3 class="card-title">Group Activities</h3>
+                            <h3 class="ui-card-title">Group Activities</h3>
                             <p>Engaging activities for learning and developing life skills</p>
                         </div>
                     </div>
-                <div class="card bg-white shadow-xl">
-                        <div class="card-body items-center text-center">
+                <div class="ui-card bg-white">
+                        <div class="ui-card-body items-center text-center">
                             <div class="w-16 h-16 mb-4">
                                 <AstroIcon name="fa-solid:heart" class="w-full h-full text-gdpt" />
                             </div>
-                            <h3 class="card-title">Community Service</h3>
+                            <h3 class="ui-card-title">Community Service</h3>
                             <p>Participate in volunteer work and community service</p>
                         </div>
                     </div>
@@ -67,11 +67,11 @@ const CALENDAR_API_KEY = import.meta.env.CALENDAR_API_KEY;
         </div>
 
         <!-- Calendar Section -->
-    <div class="py-20 bg-white">
+        <div class="py-20 bg-white">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center mb-12">Activity Calendar</h2>
-            <div class="card bg-white shadow-xl">
-                    <div class="card-body p-2">
+            <div class="ui-card bg-white">
+                    <div class="ui-card-body p-2">
                         <div class="calendar-wrapper w-full aspect-[16/9]">
                             <iframe
                                 src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FLos_Angeles&mode=AGENDA&showNav=0&showTz=0&showCalendars=0&showTabs=0&showPrint=0&showTitle=0&showDate=0&src=Z2RwdGFub21hQGdtYWlsLmNvbQ&color=%23EF6C00"
@@ -99,7 +99,7 @@ const CALENDAR_API_KEY = import.meta.env.CALENDAR_API_KEY;
                 </p>
                 <div class="flex gap-4 justify-center">
                     <a href="/contact" 
-                       class="btn btn-lg glass text-white border-2 border-white hover:bg-white hover:text-gdpt hover:scale-105 transition-all duration-300 shadow-lg">
+                       class="ui-btn ui-btn-lg ui-btn-primary border-2 border-white/70 hover:bg-white hover:text-gdpt hover:scale-105">
                         <AstroIcon name="fa-solid:envelope" class="w-5 h-5 mr-2" />
                         Contact Us
                     </a>
