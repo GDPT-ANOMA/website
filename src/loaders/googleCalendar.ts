@@ -1,15 +1,10 @@
-import type { Loader, LoaderContext } from 'astro/loaders';
-import { z } from 'astro:content';
-import { AstroError } from 'astro/errors';
+import type { Loader, LoaderContext } from "astro/loaders";
+import { z } from "astro:content";
 
 export interface GoogleCalendarLoaderOptions {
-  /** Google Calendar API Key */
   apiKey: string;
-  /** ID of the public Google Calendar */
   calendarId: string;
-  /** Number of events to fetch (default: 100) */
   maxResults?: number;
-  /** Whether to include past events (default: false) */
   includePastEvents?: boolean;
 }
 
@@ -30,18 +25,24 @@ const EventSchema = z.object({
 
 async function fetchCalendarData(
   options: GoogleCalendarLoaderOptions,
-  { logger, parseData, store }: LoaderContext
+  { logger, parseData, store }: LoaderContext,
 ) {
-  const timeMin = options.includePastEvents 
-    ? undefined 
+  if (!options.apiKey || !options.calendarId) {
+    logger.warn("Skipping calendar fetch: missing GOOGLE_CALENDAR_API_KEY or GOOGLE_CALENDAR_ID");
+    store.clear();
+    return;
+  }
+
+  const timeMin = options.includePastEvents
+    ? undefined
     : encodeURIComponent(new Date().toISOString());
-  
+
   const queryParams = new URLSearchParams({
     key: options.apiKey,
     ...(timeMin && { timeMin }),
     maxResults: (options.maxResults || 100).toString(),
-    singleEvents: 'true',
-    orderBy: 'startTime',
+    singleEvents: "true",
+    orderBy: "startTime",
   });
 
   const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(options.calendarId)}/events?${queryParams}`;
@@ -49,47 +50,40 @@ async function fetchCalendarData(
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`Failed to fetch calendar events: ${response.statusText}`);
+      logger.warn(`Skipping calendar fetch: Google API returned ${response.status}`);
+      store.clear();
+      return;
     }
 
     const data = await response.json();
-    logger.info(`Fetched ${data.items.length} events`);
+    const items = Array.isArray(data.items) ? data.items : [];
+
+    logger.info(`Fetched ${items.length} calendar events`);
     store.clear();
 
-    for (const event of data.items) {
+    for (const event of items) {
       const parsedEvent = await parseData({
         id: event.id,
         data: event,
       });
-      
+
       store.set({
         id: event.id,
         data: parsedEvent,
       });
     }
   } catch (error) {
-    logger.error(`Error fetching calendar events: ${error}`);
-    throw new AstroError('Failed to load Google Calendar data');
+    logger.warn(`Skipping calendar fetch due to request error: ${String(error)}`);
+    store.clear();
   }
 }
 
 export function googleCalendarLoader(options: GoogleCalendarLoaderOptions): Loader {
   return {
-    name: 'google-calendar-loader',
+    name: "google-calendar-loader",
     load: async (context: LoaderContext) => {
-      const { logger } = context;
-      logger.info('Starting to fetch calendar events...');
-      
       await fetchCalendarData(options, context);
-
-      // Optionally set up polling to refresh data periodically
-      setInterval(async () => {
-        logger.info('Refreshing calendar events...');
-        await fetchCalendarData(options, context);
-      }, 5 * 60 * 1000); // Refresh every 5 minutes
     },
     schema: async () => EventSchema,
   };
 }
-
-

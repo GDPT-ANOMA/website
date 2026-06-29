@@ -1,0 +1,11 @@
+---
+import HomePage from "../../components/home/HomePage.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getTranslations } from "../../i18n/translations";
+
+const t = getTranslations("vn");
+---
+
+<Layout title="GDPT Anoma - Gia Dinh Phat Tu Viet Nam" locale="vn">
+  <HomePage t={t} />
+</Layout>

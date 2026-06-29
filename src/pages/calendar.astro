@@ -1,26 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
+import ComingSoon from "../components/common/ComingSoon.astro";
+import Layout from "../layouts/Layout.astro";
+import { getTranslations } from "../i18n/translations";
 
+const t = getTranslations("en");
 ---
 
-<Layout title="Calendar Events" class="">
-  <h1>Calendar Events</h1>
-  
-  <div class="events">
-    
-  </div>
+<Layout title="Calendar - GDPT Anoma" locale="en">
+  <ComingSoon t={t} pageName="Calendar" homeHref="/" />
 </Layout>
-
-<style>
-  .events {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .event {
-    padding: 1rem;
-    margin: 1rem 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-</style> 

@@ -87,7 +87,7 @@ const GoogleCalendar = ({ CALENDAR_API_KEY }) => {
           <div key={index}>
             {/* Code for displaying the event goes here */}
             <div className="my-1 ps-2 first:mt-0">
-              <h3 className="text-xl font-medium uppercase text-gray-500 dark:text-gray-400">
+              <h3 className="text-xl font-medium uppercase text-gray-500">
                 {formattedDate}
               </h3>
             </div>

@@ -1,0 +1,203 @@
+---
+import type { Translations } from "../../i18n/translations";
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const { home } = t;
+
+const countdown = [
+  { label: "Days", value: "12" },
+  { label: "Hours", value: "05" },
+  { label: "Mins", value: "42" },
+];
+
+const eventImages = [
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuCe8YPPsbwD-yjzulPs0Z5_GGXN96r92jIzesewCkZP0D3EAEZF2D7dK2Gy0JMgoun1CGzk4Z73oXYVPHOZ0r-UtYQvv41gJ47RkhgKQuuIItltBIDFhTPHq0M2gabB2mmnWh098X7sQsvrihebk7_-Hu6vW-HpF2kuoY8iYjIKYfR5Lu5O9syrxytIgWR28aG2Rs128jT_7wLjX7-q8MpE5q1Ni5XUjqzwv0sJOMUR-L6DNaQln37spaRtoKPZgGmV1am-zzsfWP8",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuB4nbNv0uUZTSPropr4d23yCARp5q_kw3B3AXZBMYHejjSJeY68YQimfLl35GGTDHR2iYKBU6fg5HTx3WtkvMeeA7mKLxSC_fe-L6y4uNqyvMUD-YMnzTviR5xd4yxkvs4W8YA74TE9E7O_vk2oP9Xnd1ihhW5sElkyHsDTZq0B2EqdL0KC1XESGQ5LjfQ5R5sXg-21aCQWavSi7uj4UNpQPrmD094cVRxKWi2QdJjpjRwvBOWatyvu9arv0xRYFrObmqp2JUptxxw",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuCMSFSGb4H5olofzoBudUCrvTddTN562LNUAYBh7CGmnLPlBmr-5TORhGnUZAF1FJb4rFF6HKOGvOZT_kFv2DP78yP0FTrpxNJmfMTpHPf2_RTCFC1GVAW3QBXkDsXypITBmfFTAtjyJvQghvm3M1xr_Hz_CZmRU2nETCcLDeJNSW9oBkQ5fQXz6ahRAFOc837917nTiIbdPo9zTMTIPGd08NkXZsoNgNgJenu8OqKQo2OLa-TEaX3vz_j0_qnn7dOu5h2ctwH8570",
+];
+---
+
+<main class="relative overflow-hidden">
+  <section class="relative pt-12 pb-20 px-6 lg:px-20">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <div class="relative z-10 fade-up">
+        <span class="inline-block py-1 px-4 rounded-full bg-accent/20 text-primary text-xs font-bold uppercase tracking-widest mb-6">
+          {home.established}
+        </span>
+        <h1 class="font-display text-5xl lg:text-7xl font-bold text-slate-900 leading-[1.05] mb-6 text-shadow-sm">
+          {home.heroTitleBefore} <span class="text-primary italic">{home.heroTitleAccent}</span> {home.heroTitleAfter}
+        </h1>
+        <p class="text-lg text-slate-700 leading-relaxed mb-10 max-w-xl">
+          {home.heroDescription}
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#events" class="bg-primary text-white px-8 py-4 rounded-xl font-bold flex items-center gap-2 hover:scale-[1.02] transition-transform shadow-lg shadow-primary/20">
+            {home.heroPrimaryCta}
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+          <a href="#mission" class="border border-primary/20 bg-white/60 backdrop-blur px-8 py-4 rounded-xl font-bold text-primary hover:bg-white transition-colors">
+            {home.heroSecondaryCta}
+          </a>
+        </div>
+      </div>
+
+      <div class="relative fade-up stagger-2">
+        <div class="absolute -top-10 -right-10 w-64 h-64 bg-accent/20 organic-shape blur-3xl -z-10"></div>
+        <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-primary/10 organic-shape blur-3xl -z-10"></div>
+        <div class="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white">
+          <img
+            alt="Buddhist youth ceremony"
+            class="w-full h-full object-cover"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwQ3M40RhHKsuQOkg0m65EEzZ0ig3m_d1A7FlD4kquQ6VJSuaNqJ9ZZyT2jKLa5V1CxhG7wPs41pr_UG3GDRJUbK9ZVtJBlZDZeDXPMfhjebLAGIRcl7k4y2w2Yhc_-45ZPho2W2U-KL442T1pPZg1QbyhW8kC0ZRVYLOKyiIY9eGglTBsl29VkKfwIBYUixn7kwkG6Kj6oHdCkJjq4ONk6qTjh4RpUdR2cJWkHngRLZDTRSXRmn3hluI_I0Y5G6H95bSRdjFlM7g"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="event-banner" class="bg-primary text-white py-12 px-6 lg:px-20 relative">
+    <div class="absolute inset-0 grain-texture"></div>
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
+      <div class="text-center lg:text-left">
+        <p class="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-2">{home.bannerLabel}</p>
+        <h2 class="font-display text-3xl font-bold">{home.bannerTitle}</h2>
+        <p class="opacity-80 mt-1">{home.bannerLocationDate}</p>
+      </div>
+      <div class="flex gap-4 md:gap-8">
+        {countdown.map((item) => (
+          <div class="flex flex-col items-center">
+            <div class="w-16 h-16 md:w-20 md:h-20 bg-white/10 rounded-2xl flex items-center justify-center border border-white/20">
+              <span class="text-2xl md:text-3xl font-bold">{item.value}</span>
+            </div>
+            <span class="text-[10px] mt-2 uppercase tracking-widest opacity-60 font-bold">{item.label}</span>
+          </div>
+        ))}
+      </div>
+      <div class="w-full lg:w-auto">
+        <button class="w-full bg-accent text-primary px-10 py-4 rounded-xl font-black text-sm hover:bg-white transition-colors uppercase">
+          {home.bannerAction}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="mission" class="py-24 px-6 lg:px-20 bg-warm-cream/50">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center">
+      <div class="flex-1 space-y-8">
+        <div class="relative inline-block">
+          <h2 class="font-display text-4xl font-bold text-slate-900 relative z-10">{home.missionTitle}</h2>
+          <div class="absolute -bottom-2 left-0 w-24 h-4 bg-accent/30 -z-10"></div>
+        </div>
+
+        <div class="space-y-6 text-slate-700 leading-relaxed text-lg">
+          <p>{home.missionParagraph1}</p>
+          <p>{home.missionParagraph2}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary">diversity_3</span>
+              <div>
+                <h4 class="font-bold text-slate-900">{home.missionCommunityTitle}</h4>
+                <p class="text-sm">{home.missionCommunityBody}</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary">nature</span>
+              <div>
+                <h4 class="font-bold text-slate-900">{home.missionNatureTitle}</h4>
+                <p class="text-sm">{home.missionNatureBody}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-1 w-full grid grid-cols-2 gap-4">
+        <div class="space-y-4 pt-12">
+          <div class="rounded-2xl overflow-hidden shadow-lg h-64">
+            <img
+              alt="Temple details"
+              class="w-full h-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2gNgQreXTBKJM2HV8WfIvl2kmY6cSLgcrRD8uG5hm_qEPCRTO6AnN7fP2deHMXOUK7UJmpOe3cJWxizSQMmaxYbIZ7yIzpbBpFHomCrAJXm4Y5FR3xQB7AyTavfYT1TQAhRb6wTdaeSxt7r0DwPZgQPQahmNFTNPif7J7U8RadyZGga4gxD5y-_tPR4pvcko7xFhzTAB2dnLOrFRE-SMiqRqnr6dqNwj4d7Vx_Wf3CHmM9NT4It-4A_dVwcFKRx1qoloUKC-ouzo"
+            />
+          </div>
+          <div class="rounded-2xl overflow-hidden shadow-lg h-48 bg-primary p-8 flex items-end">
+            <p class="text-white font-display text-2xl font-bold italic">{home.missionQuote}</p>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="rounded-2xl overflow-hidden shadow-lg h-48 bg-accent/40 flex items-center justify-center p-8 text-center">
+            <p class="text-primary font-bold">{home.missionMembers}</p>
+          </div>
+          <div class="rounded-2xl overflow-hidden shadow-lg h-72">
+            <img
+              alt="Retreat setting"
+              class="w-full h-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnLGVBK7KKHSMWtCc7ySV3fWUZY-xmfjz-CCbso2GOLbLLn7lAUDTphZM1JU9Y4OfUb8Gl_lmduWTaAjQSG6IbD08TuFeaU46YwcHVzoFb_nRb9RuemcfcGZVddRm6P26YJatzJNmxZExJ_busVr_npqt1PFVCtFJ6tAPKbtDTEYVvBx9RPxT8Gt5CnYWm0rL1W0mwFnxR0rcfiMd8mXeIgUgsCA_SSq3c7-8tw514syxuISgNw_D09-U4LOP1XH3eG8cCgLzrMyE"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="events" class="py-24 px-6 lg:px-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <h2 class="font-display text-4xl font-bold text-slate-900 mb-4">{home.eventsTitle}</h2>
+          <p class="text-slate-600">{home.eventsSubtitle}</p>
+        </div>
+        <a class="text-primary font-bold flex items-center gap-2 group" href="/calendar">
+          {home.eventsLink}
+          <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+        </a>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          home.eventsCards.map((eventCard, index) => (
+            <article class="group bg-white rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 border border-slate-100 transition-all hover:-translate-y-2">
+              <div class="h-56 relative">
+                <img alt={eventCard.title} class="w-full h-full object-cover" src={eventImages[index]} />
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-primary text-xs font-black uppercase">
+                  {eventCard.badge}
+                </div>
+              </div>
+              <div class="p-8">
+                <div class="flex gap-2 text-primary text-xs font-bold mb-3 uppercase tracking-wide">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  {eventCard.meta}
+                </div>
+                <h3 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{eventCard.title}</h3>
+                <p class="text-slate-600 text-sm mb-6">{eventCard.description}</p>
+                <button class={`w-full py-3 rounded-xl font-bold transition-colors ${index === 2 ? "bg-primary text-white hover:bg-primary/90" : "border border-primary/20 text-primary hover:bg-primary hover:text-white"}`}>
+                  {eventCard.button}
+                </button>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 px-6 lg:px-20 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto bg-warm-cream rounded-[3rem] p-12 lg:p-20 text-center relative border border-primary/5">
+      <div class="absolute -top-12 -left-12 w-48 h-48 bg-accent/20 organic-shape blur-3xl"></div>
+      <div class="absolute -bottom-12 -right-12 w-48 h-48 bg-primary/10 organic-shape blur-3xl"></div>
+      <h2 class="font-display text-4xl lg:text-5xl font-bold text-slate-900 mb-6">{home.ctaTitle}</h2>
+      <p class="text-lg text-slate-700 mb-10 max-w-2xl mx-auto">{home.ctaBody}</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <button class="bg-primary text-white px-10 py-5 rounded-2xl font-black text-lg shadow-xl shadow-primary/30 hover:scale-[1.02] transition-all">
+          {home.ctaPrimary}
+        </button>
+        <button class="bg-white text-primary border border-primary/10 px-10 py-5 rounded-2xl font-black text-lg hover:bg-slate-50 transition-colors">
+          {home.ctaSecondary}
+        </button>
+      </div>
+    </div>
+  </section>
+</main>

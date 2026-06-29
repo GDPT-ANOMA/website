@@ -3,17 +3,22 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import icon from "astro-icon";
 import tailwindcss from "@tailwindcss/vite";
-
 import node from "@astrojs/node";
 
-// https://astro.build/config
 export default defineConfig({
-    integrations: [icon(), mdx(), react()],
-    vite: {
-        plugins: [tailwindcss()],
+  integrations: [icon(), mdx(), react()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "vn"],
+    routing: {
+      prefixDefaultLocale: false,
     },
-    output: "server",
-    adapter: node({
-        mode: "standalone",
-    }),
+  },
+  output: "server",
+  adapter: node({
+    mode: "standalone",
+  }),
 });

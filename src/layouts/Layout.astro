@@ -1,62 +1,155 @@
 ---
-import navigationTabs from "../data/navigationTabs.json";
-import { Icon } from "astro-icon/components";
 import "../styles/global.css";
-import "../styles/hamburgers.css";
-import Navigation from "../components/default/Navigation.astro";
+import {
+  getLocaleFromPathname,
+  getTranslations,
+  toLocalePath,
+  type Locale,
+} from "../i18n/translations";
+
 interface Props {
-    title: string;
-    class: string;
+  title: string;
+  description?: string;
+  locale?: Locale;
 }
 
-const { title, class: className } = Astro.props;
+const pathname = Astro.url.pathname;
+const locale = Astro.props.locale ?? getLocaleFromPathname(pathname);
+const t = getTranslations(locale);
+const englishPath = toLocalePath("en");
+const vietnamesePath = toLocalePath("vn");
+
+const {
+  title,
+  description = "GDPT Anoma - Vietnamese Buddhist Youth Association",
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="description" content="A website for GĐPT Anôma" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/svg+xml" href="/logos/gdpt.svg" />
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/favicons/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicons/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicons/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/favicons/site.webmanifest" />
-        <title>{title}</title>
-    </head>
-    <body
-        class="bg-transparent max-w-screen-2xl px-4 sm:px-6 lg:px-8 mx-auto relative min-h-screen"
-    >
-        <!-- Fixed Background Image -->
-        <div
-            class="fixed inset-0 z-[-1] bg-cover bg-center bg-no-repeat opacity-90"
-            style="background-image: url('/backgrounds/background.JPG');"
-        >
+<html class="light" lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/logos/gdpt.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body class="bg-background-light font-sans text-slate-800 selection:bg-accent/30">
+    <header class="sticky top-0 z-50 w-full bg-background-light/85 backdrop-blur-md border-b border-primary/10 px-6 lg:px-20 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <a class="flex items-center gap-3" href={locale === "vn" ? "/vn" : "/"}>
+          <div class="bg-primary text-white p-2 rounded-xl">
+            <span class="material-symbols-outlined text-2xl">local_library</span>
+          </div>
+          <div>
+            <h1 class="font-display text-2xl font-bold leading-none text-primary">{t.layout.siteName}</h1>
+            <p class="text-[10px] uppercase tracking-widest opacity-70">{t.layout.shortName}</p>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8">
+          <a class="text-sm font-medium hover:text-primary transition-colors" href="/about">{t.layout.nav.aboutUs}</a>
+          <a class="text-sm font-medium hover:text-primary transition-colors" href="/calendar">{t.layout.nav.education}</a>
+          <a class="text-sm font-medium hover:text-primary transition-colors" href="/team">{t.layout.nav.events}</a>
+          <a class="text-sm font-medium hover:text-primary transition-colors" href="/contact">{t.layout.nav.gallery}</a>
+        </nav>
+
+        <div class="flex items-center gap-4">
+          <div class="flex bg-slate-100 rounded-full p-1 border border-slate-200">
+            <a
+              href={englishPath}
+              class={`px-3 py-1 text-xs rounded-full ${locale === "en" ? "font-bold bg-white shadow-sm" : "font-medium opacity-60"}`}
+            >
+              EN
+            </a>
+            <a
+              href={vietnamesePath}
+              class={`px-3 py-1 text-xs rounded-full ${locale === "vn" ? "font-bold bg-white shadow-sm" : "font-medium opacity-60"}`}
+            >
+              VN
+            </a>
+          </div>
+          <a href="/contact" class="hidden sm:block bg-primary text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+            {t.layout.registerPay}
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer class="bg-primary text-white py-20 px-6 lg:px-20">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="bg-white text-primary p-2 rounded-xl">
+              <span class="material-symbols-outlined text-2xl">local_library</span>
+            </div>
+            <div>
+              <h2 class="font-display text-2xl font-bold leading-none">{t.layout.siteName}</h2>
+              <p class="text-[10px] uppercase tracking-widest opacity-60">{t.layout.siteTagline}</p>
+            </div>
+          </div>
+          <p class="text-accent max-w-sm mb-8 leading-relaxed">{t.layout.footer.mission}</p>
+          <div class="flex gap-4">
+            <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-primary transition-all" href="#">
+              <span class="material-symbols-outlined text-sm">public</span>
+            </a>
+            <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-primary transition-all" href="#">
+              <span class="material-symbols-outlined text-sm">mail</span>
+            </a>
+          </div>
         </div>
 
-        <!-- Semi-transparent overlay for better content readability -->
-        <div class="fixed inset-0 z-[-1] bg-white/80"></div>
+        <div>
+          <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-xs">{t.layout.footer.resources}</h4>
+          <ul class="space-y-4 text-accent text-sm">
+            <li><a class="hover:text-white transition-colors" href="/calendar">{t.layout.footer.resourceLinks.schedule}</a></li>
+            <li><a class="hover:text-white transition-colors" href="/about">{t.layout.footer.resourceLinks.curriculum}</a></li>
+            <li><a class="hover:text-white transition-colors" href="/team">{t.layout.footer.resourceLinks.memberPortal}</a></li>
+            <li><a class="hover:text-white transition-colors" href="/contact">{t.layout.footer.resourceLinks.volunteering}</a></li>
+          </ul>
+        </div>
 
-        <!-- Main Body -->
-        <Navigation />
-        <main class="my-4 mx-2 pt-8 relative">
-            <slot />
-        </main>
-    </body>
+        <div>
+          <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-xs">{t.layout.footer.contact}</h4>
+          <ul class="space-y-4 text-accent text-sm">
+            <li class="flex gap-3">
+              <span class="material-symbols-outlined text-sm">location_on</span>
+              <span>{t.layout.footer.address}</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="material-symbols-outlined text-sm">call</span>
+              <span>{t.layout.footer.phone}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between gap-6 text-[10px] uppercase tracking-widest opacity-40">
+        <p>© {t.layout.footer.copyright}</p>
+        <div class="flex gap-8">
+          <a href="#">{t.layout.footer.privacy}</a>
+          <a href="#">{t.layout.footer.terms}</a>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
