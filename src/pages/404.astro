@@ -1,11 +1,21 @@
 ---
-import ComingSoon from "../components/common/ComingSoon.astro";
 import Layout from "../layouts/Layout.astro";
-import { getTranslations } from "../i18n/translations";
+import { copy, localePath, site, t } from "../i18n/site";
 
-const t = getTranslations("en");
+const locale = "en" as const;
 ---
 
-<Layout title="Page Not Found - GDPT Anoma" locale="en">
-  <ComingSoon t={t} pageName="Page Not Found" homeHref="/" />
+<Layout title={`Not found — ${site.nameShort}`} locale={locale}>
+  <main class="page-wrap py-[var(--space-section)] max-w-xl">
+    <h1 class="font-extrabold m-0 mb-3" style="font-size: var(--text-3xl)">
+      {t(copy.notFound.title, locale)}
+    </h1>
+    <p class="m-0 mb-8">{t(copy.notFound.body, locale)}</p>
+    <div class="flex flex-wrap gap-3">
+      <a class="btn btn-la" href={localePath(locale)}>{t(copy.notFound.home, locale)}</a>
+      <a class="btn btn-ghost" href={localePath(locale, "/schedule")}>
+        {t(copy.notFound.schedule, locale)}
+      </a>
+    </div>
+  </main>
 </Layout>

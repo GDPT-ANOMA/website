@@ -1,0 +1,219 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import chapterGroup from "../../assets/chapter-group.jpg";
+import { copy, localePath, site, t, type Locale } from "../../i18n/site";
+
+interface Props {
+  locale: Locale;
+  schedule: CollectionEntry<"schedule">[];
+  nganh: CollectionEntry<"nganh">[];
+  events: CollectionEntry<"events">[];
+  announcements: CollectionEntry<"announcements">[];
+}
+
+const { locale, schedule, nganh, events, announcements } = Astro.props;
+const lang = locale === "vi" ? "vi" : "en";
+
+function fmtDate(d: Date): string {
+  return d.toLocaleDateString(locale === "vi" ? "vi-VN" : "en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+---
+
+<main>
+  <section class="page-wrap pt-10 pb-8 md:pt-14 md:pb-10">
+    <p class="text-sm font-medium text-lam m-0 mb-4" lang="vi">
+      {t(copy.home.kicker, locale)}
+    </p>
+    <h1
+      class="font-extrabold text-display text-lam-deep m-0 max-w-4xl"
+      lang="vi"
+      style="font-size: var(--text-display);"
+    >
+      {site.nameVi}
+    </h1>
+    <p class="text-lg text-ink mt-5 mb-0" lang={lang}>
+      {t(copy.home.lead, locale)}
+    </p>
+    <p class="text-lam-deep font-semibold mt-4 mb-8" lang={lang}>
+      {t(site.sunday, locale)} · {t(site.address, locale)}
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <a class="btn btn-la" href={localePath(locale, "/schedule")}>
+        {t(copy.cta.sunday, locale)}
+      </a>
+      <a class="btn btn-ghost" href={`mailto:${site.email}`}>
+        {t(copy.cta.text, locale)}
+      </a>
+    </div>
+  </section>
+
+  <figure class="m-0">
+    <Image
+      src={chapterGroup}
+      alt={t(copy.home.photoAlt, locale)}
+      widths={[640, 960, 1280, 1600]}
+      sizes="100vw"
+      class="w-full h-auto aspect-[16/9] md:aspect-[21/9] object-cover"
+      quality={78}
+      loading="eager"
+      fetchpriority="high"
+    />
+  </figure>
+
+  <!-- Signature: Sunday handout -->
+  <section class="page-wrap py-[var(--space-section)]" aria-labelledby="handout-title">
+    <article class="handout p-5 sm:p-8 max-w-3xl">
+      <header class="flex items-start justify-between gap-4 mb-6">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-lam m-0 mb-2">
+            {t(copy.home.handoutLabel, locale)}
+          </p>
+          <h2 id="handout-title" class="text-2xl sm:text-3xl font-extrabold m-0" lang="vi">
+            {t(copy.home.handoutTitle, locale)}
+          </h2>
+          <p class="text-sm text-lam mt-2 mb-0" lang={lang}>
+            {t(copy.home.handoutSub, locale)}
+          </p>
+        </div>
+        <img src="/logos/gdpt.svg" alt="" width="56" height="56" class="shrink-0" />
+      </header>
+
+      <p class="text-sm font-bold text-lam-deep m-0 mb-4 pb-3 border-b border-rule">
+        {t(site.sunday, locale)}
+      </p>
+
+      <div>
+        {
+          schedule.map((row) => (
+            <div class="handout-row">
+              <time class="handout-time" datetime={`T${row.data.time}`}>{row.data.time}</time>
+              <div>
+                <p class="font-semibold text-lam-deep m-0" lang={lang}>
+                  {t(row.data.title, locale)}
+                </p>
+                <p class="text-sm text-ink/80 m-0 mt-1" lang={lang}>
+                  {t(row.data.detail, locale)}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="text-sm text-lam-deep m-0 mt-6 pt-4 border-t border-rule" lang={lang}>
+        {t(site.wear, locale)}
+      </p>
+    </article>
+  </section>
+
+  <section class="page-wrap pb-[var(--space-section)]" aria-labelledby="sunday-title">
+    <h2 id="sunday-title" class="text-2xl font-bold m-0 mb-4" lang={lang}>
+      {t(copy.home.sundayTitle, locale)}
+    </h2>
+    <p class="text-ink m-0" lang={lang}>{t(copy.home.sundayBody, locale)}</p>
+    <h3 class="text-lg font-bold mt-8 mb-2" lang={lang}>{t(copy.home.wearTitle, locale)}</h3>
+    <p class="m-0" lang={lang}>{t(site.wear, locale)}</p>
+  </section>
+
+  <section class="bg-sen border-y border-rule">
+    <div class="page-wrap py-[var(--space-section)]" aria-labelledby="nganh-title">
+      <h2 id="nganh-title" class="text-2xl font-bold m-0 mb-2" lang={lang}>
+        {t(copy.home.nganhTitle, locale)}
+      </h2>
+      <p class="text-lam-deep m-0 mb-8" lang={lang}>{t(copy.home.nganhLead, locale)}</p>
+      <dl class="m-0 divide-y divide-[color:var(--rule)]">
+        {
+          nganh.map((item) => (
+            <div class="py-5 grid gap-2 md:grid-cols-[14rem_1fr]">
+              <dt>
+                <p class="font-bold text-lam-deep m-0" lang="vi">{t(item.data.name, locale)}</p>
+                <p class="text-sm text-lam m-0 mt-1" lang={lang}>{t(item.data.ages, locale)}</p>
+              </dt>
+              <dd class="m-0 text-ink" lang={lang}>{t(item.data.summary, locale)}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <a class="btn btn-ghost mt-6" href={localePath(locale, "/nganh")}>
+        {t(copy.nav.nganh, locale)}
+      </a>
+    </div>
+  </section>
+
+  <section class="page-wrap py-[var(--space-section)]" aria-labelledby="events-title">
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+      <h2 id="events-title" class="text-2xl font-bold m-0" lang={lang}>
+        {t(copy.home.eventsTitle, locale)}
+      </h2>
+      <a class="text-sm font-semibold text-la" href={localePath(locale, "/schedule")}>
+        {t(copy.nav.schedule, locale)}
+      </a>
+    </div>
+
+    {
+      events.length === 0 ? (
+        <p class="text-lam m-0" lang={lang}>{t(copy.home.eventsEmpty, locale)}</p>
+      ) : (
+        <ul class="list-none m-0 p-0 divide-y divide-[color:var(--rule)]">
+          {events.map((event) => (
+            <li class="py-5">
+              <p class="text-sm font-semibold text-la m-0">{fmtDate(event.data.date)}</p>
+              <h3 class="text-lg font-bold m-0 mt-1" lang={lang}>{t(event.data.title, locale)}</h3>
+              <p class="text-sm text-lam m-0 mt-1" lang={lang}>
+                {t(event.data.time, locale)} · {t(event.data.place, locale)}
+              </p>
+              <p class="m-0 mt-2" lang={lang}>{t(event.data.summary, locale)}</p>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+
+  {
+    announcements.length > 0 && (
+      <section class="page-wrap pb-[var(--space-section)]" aria-labelledby="announce-title">
+        <h2 id="announce-title" class="text-2xl font-bold m-0 mb-6" lang={lang}>
+          {t(copy.home.announceTitle, locale)}
+        </h2>
+        <ul class="list-none m-0 p-0 space-y-4">
+          {announcements.map((a) => (
+            <li class="border-l-2 border-la pl-4">
+              <h3 class="font-bold m-0" lang={lang}>{t(a.data.title, locale)}</h3>
+              <p class="m-0 mt-1 text-ink" lang={lang}>{t(a.data.body, locale)}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="bg-lam-deep text-sen">
+    <div class="page-wrap py-[var(--space-section)]">
+      <h2 class="text-2xl font-bold text-sen m-0 mb-4" lang={lang}>
+        {t(copy.home.joinTitle, locale)}
+      </h2>
+      <p class="text-white/85 m-0 mb-6 max-w-2xl" lang={lang}>
+        {t(copy.home.joinBody, locale)}
+      </p>
+      <p class="text-sm text-white/70 m-0 mb-6" lang={lang}>
+        {t(site.textHint, locale)}
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a class="btn bg-sen text-lam-deep hover:bg-white" href={localePath(locale, "/contact")}>
+          {t(copy.cta.join, locale)}
+        </a>
+        <a class="btn border border-white/30 text-sen hover:bg-white/10" href={`mailto:${site.email}`}>
+          {site.email}
+        </a>
+      </div>
+    </div>
+  </section>
+</main>

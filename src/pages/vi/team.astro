@@ -1,14 +1,14 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../layouts/Layout.astro";
-import { copy, site, t } from "../i18n/site";
+import Layout from "../../layouts/Layout.astro";
+import { copy, site, t } from "../../i18n/site";
 
-const locale = "en" as const;
-const lang = "en";
+const locale = "vi" as const;
+const lang = "vi";
 const staff = (await getCollection("staff")).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<Layout title={`Leaders — ${site.nameShort}`} locale={locale}>
+<Layout title={`Huynh trưởng — ${site.nameShort}`} locale={locale}>
   <main class="page-wrap py-[var(--space-section)]">
     <h1 class="font-extrabold m-0 mb-3" style="font-size: var(--text-3xl);" lang={lang}>
       {t(copy.teamPage.title, locale)}

@@ -1,11 +1,3 @@
 ---
-import ComingSoon from "../components/common/ComingSoon.astro";
-import Layout from "../layouts/Layout.astro";
-import { getTranslations } from "../i18n/translations";
-
-const t = getTranslations("en");
+return Astro.redirect("/schedule", 301);
 ---
-
-<Layout title="Calendar - GDPT Anoma" locale="en">
-  <ComingSoon t={t} pageName="Calendar" homeHref="/" />
-</Layout>

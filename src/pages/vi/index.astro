@@ -1,10 +1,10 @@
 ---
 import { getCollection } from "astro:content";
-import Home from "../components/home/Home.astro";
-import Layout from "../layouts/Layout.astro";
-import { site } from "../i18n/site";
+import Home from "../../components/home/Home.astro";
+import Layout from "../../layouts/Layout.astro";
+import { site } from "../../i18n/site";
 
-const locale = "en" as const;
+const locale = "vi" as const;
 
 const [schedule, nganh, events, announcements] = await Promise.all([
   getCollection("schedule"),
@@ -23,8 +23,8 @@ announcements.sort((a, b) => {
 ---
 
 <Layout
-  title={`${site.nameShort} — Sundays 8:30 AM`}
-  description="GĐPT Anôma Sunday chương trình for Vietnamese-American families. Times, what to wear, how to join."
+  title={`${site.nameShort} — Chủ Nhật 8:30`}
+  description="GĐPT Anôma: sinh hoạt Chủ Nhật cho gia đình Việt. Giờ giấc, trang phục, cách ghi danh."
   locale={locale}
 >
   <Home

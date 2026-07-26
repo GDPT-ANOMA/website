@@ -1,0 +1,98 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import { copy, site, t } from "../i18n/site";
+
+const locale = "en" as const;
+const lang = "en";
+
+const schedule = (await getCollection("schedule")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const events = (await getCollection("events")).sort(
+  (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
+);
+
+let calendar: CollectionEntry<"calendar-events">[] = [];
+try {
+  calendar = await getCollection("calendar-events");
+} catch {
+  calendar = [];
+}
+
+function fmtDate(d: Date): string {
+  return d.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+---
+
+<Layout title={`Schedule — ${site.nameShort}`} locale={locale}>
+  <main class="page-wrap py-[var(--space-section)]">
+    <h1 class="font-extrabold m-0 mb-3" style="font-size: var(--text-3xl);" lang={lang}>
+      {t(copy.schedulePage.title, locale)}
+    </h1>
+    <p class="m-0 mb-10" lang={lang}>{t(copy.schedulePage.lead, locale)}</p>
+
+    <article class="handout p-5 sm:p-8 max-w-3xl mb-14">
+      <h2 class="text-xl font-extrabold m-0 mb-1" lang="vi">Tờ lịch Chủ Nhật</h2>
+      <p class="text-sm font-bold text-lam-deep m-0 mb-4">{t(site.sunday, locale)}</p>
+      {
+        schedule.map((row) => (
+          <div class="handout-row">
+            <time class="handout-time">{row.data.time}</time>
+            <div>
+              <p class="font-semibold m-0" lang={lang}>{t(row.data.title, locale)}</p>
+              <p class="text-sm text-ink/80 m-0 mt-1" lang={lang}>{t(row.data.detail, locale)}</p>
+            </div>
+          </div>
+        ))
+      }
+      <p class="text-sm m-0 mt-6 pt-4 border-t border-rule" lang={lang}>{t(site.wear, locale)}</p>
+    </article>
+
+    <h2 class="text-xl font-bold m-0 mb-4" lang={lang}>{t(copy.home.eventsTitle, locale)}</h2>
+    {
+      events.length === 0 ? (
+        <p lang={lang}>{t(copy.home.eventsEmpty, locale)}</p>
+      ) : (
+        <ul class="list-none m-0 p-0 divide-y divide-[color:var(--rule)] mb-14">
+          {events.map((event) => (
+            <li class="py-5">
+              <p class="text-sm font-semibold text-la m-0">{fmtDate(event.data.date)}</p>
+              <h3 class="text-lg font-bold m-0 mt-1" lang={lang}>{t(event.data.title, locale)}</h3>
+              <p class="text-sm text-lam m-0 mt-1" lang={lang}>
+                {t(event.data.time, locale)} · {t(event.data.place, locale)}
+              </p>
+              <p class="m-0 mt-2" lang={lang}>{t(event.data.summary, locale)}</p>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <h2 class="text-xl font-bold m-0 mb-3" lang={lang}>{t(copy.schedulePage.calendarTitle, locale)}</h2>
+    {
+      calendar.length === 0 ? (
+        <p class="text-lam m-0" lang={lang}>{t(copy.schedulePage.calendarEmpty, locale)}</p>
+      ) : (
+        <ul class="list-none m-0 p-0 divide-y divide-[color:var(--rule)]">
+          {calendar.slice(0, 12).map((ev) => {
+            const start = ev.data.start.dateTime || ev.data.start.date || "";
+            return (
+              <li class="py-4">
+                <p class="text-sm text-la font-semibold m-0">{start}</p>
+                <p class="font-bold m-0 mt-1">{ev.data.summary}</p>
+                {ev.data.location && <p class="text-sm text-lam m-0 mt-1">{ev.data.location}</p>}
+              </li>
+            );
+          })}
+        </ul>
+      )
+    }
+  </main>
+</Layout>

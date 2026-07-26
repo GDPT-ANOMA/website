@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import { copy, site, t } from "../i18n/site";
+
+const locale = "en" as const;
+const lang = "en";
+const nganh = (await getCollection("nganh")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout title={`Ngành — ${site.nameShort}`} locale={locale}>
+  <main class="page-wrap py-[var(--space-section)]">
+    <h1 class="font-extrabold m-0 mb-3" style="font-size: var(--text-3xl);" lang={lang}>
+      {t(copy.home.nganhTitle, locale)}
+    </h1>
+    <p class="m-0 mb-10 max-w-2xl" lang={lang}>{t(copy.home.nganhLead, locale)}</p>
+    <dl class="m-0 divide-y divide-[color:var(--rule)] max-w-3xl">
+      {
+        nganh.map((item) => (
+          <div class="py-6">
+            <dt>
+              <p class="text-xl font-bold text-lam-deep m-0" lang="vi">{t(item.data.name, locale)}</p>
+              <p class="text-sm text-lam m-0 mt-1" lang={lang}>{t(item.data.ages, locale)}</p>
+            </dt>
+            <dd class="m-0 mt-3" lang={lang}>{t(item.data.summary, locale)}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </main>
+</Layout>

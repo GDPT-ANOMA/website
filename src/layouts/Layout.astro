@@ -1,11 +1,13 @@
 ---
 import "../styles/global.css";
 import {
-  getLocaleFromPathname,
-  getTranslations,
-  toLocalePath,
+  copy,
+  localeFromPath,
+  localePath,
+  site,
+  t,
   type Locale,
-} from "../i18n/translations";
+} from "../i18n/site";
 
 interface Props {
   title: string;
@@ -14,142 +16,206 @@ interface Props {
 }
 
 const pathname = Astro.url.pathname;
-const locale = Astro.props.locale ?? getLocaleFromPathname(pathname);
-const t = getTranslations(locale);
-const englishPath = toLocalePath("en");
-const vietnamesePath = toLocalePath("vn");
-
+const locale = Astro.props.locale ?? localeFromPath(pathname);
 const {
   title,
-  description = "GDPT Anoma - Vietnamese Buddhist Youth Association",
+  description = `${site.nameShort} — ${t(site.sunday, locale)}`,
 } = Astro.props;
+
+const nav = [
+  { href: "/about", label: copy.nav.about },
+  { href: "/schedule", label: copy.nav.schedule },
+  { href: "/nganh", label: copy.nav.nganh },
+  { href: "/team", label: copy.nav.team },
+  { href: "/contact", label: copy.nav.contact },
+] as const;
+
+function isCurrent(href: string): boolean {
+  const localized = localePath(locale, href);
+  if (href === "/") return pathname === localized;
+  return pathname === localized || pathname.startsWith(`${localized}/`);
+}
+
+const pathWithoutLocale = (() => {
+  if (pathname === "/vi" || pathname.startsWith("/vi/")) {
+    return pathname.replace(/^\/vi/, "") || "/";
+  }
+  return pathname;
+})();
+const enPath = localePath("en", pathWithoutLocale);
+const viPath = localePath("vi", pathWithoutLocale);
+
+const htmlLang = locale === "vi" ? "vi" : "en";
 ---
 
 <!doctype html>
-<html class="light" lang={locale}>
+<html lang={htmlLang}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/logos/gdpt.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
       rel="stylesheet"
     />
     <title>{title}</title>
   </head>
-  <body class="bg-background-light font-sans text-slate-800 selection:bg-accent/30">
-    <header class="sticky top-0 z-50 w-full bg-background-light/85 backdrop-blur-md border-b border-primary/10 px-6 lg:px-20 py-4">
-      <div class="max-w-7xl mx-auto flex items-center justify-between">
-        <a class="flex items-center gap-3" href={locale === "vn" ? "/vn" : "/"}>
-          <div class="bg-primary text-white p-2 rounded-xl">
-            <span class="material-symbols-outlined text-2xl">local_library</span>
-          </div>
-          <div>
-            <h1 class="font-display text-2xl font-bold leading-none text-primary">{t.layout.siteName}</h1>
-            <p class="text-[10px] uppercase tracking-widest opacity-70">{t.layout.shortName}</p>
-          </div>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-sen focus:px-3 focus:py-2 focus:text-ink"
+    >
+      Skip to content
+    </a>
+
+    <header class="site-header">
+      <div class="page-wrap flex items-center justify-between gap-4 py-3">
+        <a href={localePath(locale)} class="flex items-center gap-3 min-w-0">
+          <img
+            src="/logos/gdpt.svg"
+            alt=""
+            width="40"
+            height="40"
+            class="shrink-0"
+          />
+          <span class="min-w-0">
+            <span class="block font-bold text-lam-deep text-lg leading-none truncate">
+              {site.nameShort}
+            </span>
+            <span class="block text-xs text-lam mt-1 truncate" lang="vi">
+              {locale === "vi" ? site.nameEn : site.nameVi}
+            </span>
+          </span>
         </a>
 
-        <nav class="hidden md:flex items-center gap-8">
-          <a class="text-sm font-medium hover:text-primary transition-colors" href="/about">{t.layout.nav.aboutUs}</a>
-          <a class="text-sm font-medium hover:text-primary transition-colors" href="/calendar">{t.layout.nav.education}</a>
-          <a class="text-sm font-medium hover:text-primary transition-colors" href="/team">{t.layout.nav.events}</a>
-          <a class="text-sm font-medium hover:text-primary transition-colors" href="/contact">{t.layout.nav.gallery}</a>
+        <nav class="hidden lg:flex items-center gap-6" aria-label="Primary">
+          {
+            nav.map((item) => (
+              <a
+                href={localePath(locale, item.href)}
+                class="nav-link text-sm text-lam-deep hover:text-la"
+                aria-current={isCurrent(item.href) ? "page" : undefined}
+              >
+                {t(item.label, locale)}
+              </a>
+            ))
+          }
         </nav>
 
-        <div class="flex items-center gap-4">
-          <div class="flex bg-slate-100 rounded-full p-1 border border-slate-200">
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div
+            class="lang-slider"
+            data-locale={locale}
+            role="group"
+            aria-label={locale === "vi" ? "Ngôn ngữ" : "Language"}
+          >
+            <span class="lang-slider-thumb" aria-hidden="true"></span>
             <a
-              href={englishPath}
-              class={`px-3 py-1 text-xs rounded-full ${locale === "en" ? "font-bold bg-white shadow-sm" : "font-medium opacity-60"}`}
+              href={enPath}
+              class="lang-slider-opt"
+              hreflang="en"
+              lang="en"
+              aria-current={locale === "en" ? "true" : undefined}
             >
               EN
             </a>
             <a
-              href={vietnamesePath}
-              class={`px-3 py-1 text-xs rounded-full ${locale === "vn" ? "font-bold bg-white shadow-sm" : "font-medium opacity-60"}`}
+              href={viPath}
+              class="lang-slider-opt"
+              hreflang="vi"
+              lang="vi"
+              aria-current={locale === "vi" ? "true" : undefined}
             >
               VN
             </a>
           </div>
-          <a href="/contact" class="hidden sm:block bg-primary text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-primary/20">
-            {t.layout.registerPay}
+          <a
+            href={localePath(locale, "/contact")}
+            class="btn btn-la header-action hidden sm:inline-flex"
+          >
+            {t(copy.cta.join, locale)}
           </a>
+
+          <details class="lg:hidden relative">
+            <summary class="btn btn-ghost header-action list-none cursor-pointer">
+              Menu
+            </summary>
+            <div
+              class="absolute right-0 mt-2 w-56 border border-rule bg-sen p-3 flex flex-col gap-2 shadow-sm"
+            >
+              {
+                nav.map((item) => (
+                  <a
+                    href={localePath(locale, item.href)}
+                    class="nav-link text-sm py-2 text-lam-deep"
+                    aria-current={isCurrent(item.href) ? "page" : undefined}
+                  >
+                    {t(item.label, locale)}
+                  </a>
+                ))
+              }
+              <a href={localePath(locale, "/contact")} class="btn btn-la mt-1 sm:hidden">
+                {t(copy.cta.join, locale)}
+              </a>
+            </div>
+          </details>
         </div>
       </div>
     </header>
 
-    <slot />
+    <div id="main">
+      <slot />
+    </div>
 
-    <footer class="bg-primary text-white py-20 px-6 lg:px-20">
-      <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
-        <div class="col-span-1 md:col-span-2">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="bg-white text-primary p-2 rounded-xl">
-              <span class="material-symbols-outlined text-2xl">local_library</span>
-            </div>
-            <div>
-              <h2 class="font-display text-2xl font-bold leading-none">{t.layout.siteName}</h2>
-              <p class="text-[10px] uppercase tracking-widest opacity-60">{t.layout.siteTagline}</p>
-            </div>
-          </div>
-          <p class="text-accent max-w-sm mb-8 leading-relaxed">{t.layout.footer.mission}</p>
-          <div class="flex gap-4">
-            <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-primary transition-all" href="#">
-              <span class="material-symbols-outlined text-sm">public</span>
-            </a>
-            <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-primary transition-all" href="#">
-              <span class="material-symbols-outlined text-sm">mail</span>
-            </a>
-          </div>
-        </div>
-
+    <footer class="mt-auto bg-lam-deep text-sen">
+      <div class="page-wrap py-14 grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-xs">{t.layout.footer.resources}</h4>
-          <ul class="space-y-4 text-accent text-sm">
-            <li><a class="hover:text-white transition-colors" href="/calendar">{t.layout.footer.resourceLinks.schedule}</a></li>
-            <li><a class="hover:text-white transition-colors" href="/about">{t.layout.footer.resourceLinks.curriculum}</a></li>
-            <li><a class="hover:text-white transition-colors" href="/team">{t.layout.footer.resourceLinks.memberPortal}</a></li>
-            <li><a class="hover:text-white transition-colors" href="/contact">{t.layout.footer.resourceLinks.volunteering}</a></li>
-          </ul>
+          <div class="flex items-center gap-3 mb-4">
+            <img src="/logos/gdpt.svg" alt="" width="36" height="36" />
+            <strong class="text-xl">{site.nameShort}</strong>
+          </div>
+          <p class="text-sm text-white/80 max-w-md m-0">
+            {t(copy.footer.mission, locale)}
+          </p>
         </div>
-
         <div>
-          <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-xs">{t.layout.footer.contact}</h4>
-          <ul class="space-y-4 text-accent text-sm">
-            <li class="flex gap-3">
-              <span class="material-symbols-outlined text-sm">location_on</span>
-              <span>{t.layout.footer.address}</span>
-            </li>
-            <li class="flex gap-3">
-              <span class="material-symbols-outlined text-sm">call</span>
-              <span>{t.layout.footer.phone}</span>
-            </li>
-          </ul>
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-white/60 mb-3">
+            {t(copy.nav.schedule, locale)}
+          </h2>
+          <p class="text-sm m-0 mb-2">{t(site.sunday, locale)}</p>
+          <a class="text-sm underline underline-offset-2" href={localePath(locale, "/schedule")}>
+            {t(copy.nav.schedule, locale)}
+          </a>
+        </div>
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-white/60 mb-3">
+            {t(copy.nav.contact, locale)}
+          </h2>
+          <p class="text-sm m-0" lang={locale === "vi" ? "vi" : "en"}>
+            {t(site.address, locale)}
+          </p>
+          <p class="text-sm m-0 mt-1">{site.addressLines[locale][0]}</p>
+          <p class="text-sm m-0 mt-3">
+            <a class="underline underline-offset-2" href={`mailto:${site.email}`}>{site.email}</a>
+          </p>
         </div>
       </div>
-
-      <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between gap-6 text-[10px] uppercase tracking-widest opacity-40">
-        <p>© {t.layout.footer.copyright}</p>
-        <div class="flex gap-8">
-          <a href="#">{t.layout.footer.privacy}</a>
-          <a href="#">{t.layout.footer.terms}</a>
-        </div>
+      <div class="page-wrap border-t border-white/15 py-5 text-xs text-white/50">
+        © {new Date().getFullYear()} {site.nameShort}
       </div>
     </footer>
   </body>
 </html>
+
+<style>
+  summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
