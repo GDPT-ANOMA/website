@@ -4,9 +4,9 @@ name:
   en: Oanh Vũ
   vi: Oanh Vũ
 ages:
-  en: "About 5–12"
-  vi: Khoảng 5–12 tuổi
+  en: "6–12 (Ngành Đồng)"
+  vi: "6–12 tuổi (Ngành Đồng)"
 summary:
-  en: "Games, songs, simple Phật pháp, and learning to stand in formation. Parents stay nearby the first few Sundays."
-  vi: Trò chơi, hát, Phật pháp đơn giản, và tập đứng hàng. Phụ huynh nên ở gần vài Chủ Nhật đầu.
+  en: "Ngành Đồng — songs, games, stories, and simple Phật pháp. Motto Hòa · Tin · Vui. Learn in đàn (small flocks); parents stay nearby the first few Sundays."
+  vi: "Ngành Đồng — hát, chơi, kể chuyện, Phật pháp đơn giản. Châm ngôn Hòa · Tin · Vui. Sinh hoạt theo đàn; phụ huynh nên ở gần vài Chủ Nhật đầu."
 ---

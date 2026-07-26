@@ -5,7 +5,7 @@ export const DEFAULT_LOCALE: Locale = "en";
 export const site = {
   nameShort: "GĐPT Anôma",
   nameVi: "Gia Đình Phật Tử Anôma",
-  nameEn: "Vietnamese Buddhist Youth Family, Anôma",
+  nameEn: "Vietnamese Buddhism Youth Association",
   email: "gdptanoma@gmail.com",
   phoneDisplay: "(714) 555-0199",
   phoneTel: "+17145550199",
@@ -14,16 +14,16 @@ export const site = {
     vi: "Nhắn đoàn trưởng: tên + tuổi của con.",
   },
   address: {
-    en: "Anôma temple hall. Ask for GĐPT when you arrive.",
-    vi: "Hội trường chùa Anôma. Hỏi GĐPT khi tới.",
+    en: "14867 Spinning Ave.",
+    vi: "14867 Spinning Ave.",
   },
   addressLines: {
-    en: ["Westminster / Orange County, CA"],
-    vi: ["Westminster / Orange County, CA"],
+    en: ["Gardena, CA"],
+    vi: ["Gardena, CA"],
   },
   sunday: {
-    en: "Sundays · 8:30 AM–2:00 PM",
-    vi: "Chủ Nhật · 8:30 sáng–2:00 chiều",
+    en: "Sundays · 9:00 AM–2:00 PM",
+    vi: "Chủ Nhật · 9:00 sáng–2:00 chiều",
   },
   wear: {
     en: "Members wear áo lam. Guests: neat clothes, closed-toe shoes, water bottle.",
@@ -64,12 +64,12 @@ export const copy = {
   },
   home: {
     kicker: {
-      en: "Gia Đình Phật Tử · Orange County",
-      vi: "Gia Đình Phật Tử · Orange County",
+      en: "Vietnamese Buddhism Youth Association · Gardena, CA",
+      vi: "Gia Đình Phật Tử · Gardena, CA",
     },
     lead: {
-      en: "A Sunday chương trình for Vietnamese-American kids: formation, Phật pháp, and ngành time. Run by huynh trưởng who know your family by name.",
-      vi: "Sinh hoạt Chủ Nhật cho các em Việt tại Mỹ: tập hợp, Phật pháp, và giờ ngành. Do huynh trưởng điều hành, biết từng gia đình.",
+      en: "A Sunday chương trình for Vietnamese-American kids: formation, Phật pháp, and ngành time.",
+      vi: "Sinh hoạt Chủ Nhật cho các em Việt tại Mỹ: tập hợp, Phật pháp, và giờ ngành.",
     },
     photoAlt: {
       en: "GĐPT Anôma members in áo lam with the chapter banner",
@@ -98,9 +98,10 @@ export const copy = {
     wearTitle: { en: "What to wear", vi: "Mặc gì" },
     nganhTitle: { en: "Ngành", vi: "Ngành" },
     nganhLead: {
-      en: "Age groups under one đoàn. Bi – Trí – Dũng is the shared aim; the day looks different by ngành.",
-      vi: "Các lứa tuổi trong một đoàn. Bi – Trí – Dũng là hướng chung; từng ngành sinh hoạt khác nhau.",
+      en: "Three age ngành — Đồng (Oanh Vũ), Thiếu, Thanh — plus Ban Huynh Trưởng. Bi – Trí – Dũng is shared; Sunday looks different by ngành.",
+      vi: "Ba ngành theo tuổi — Đồng (Oanh Vũ), Thiếu, Thanh — cùng Ban Huynh Trưởng. Bi – Trí – Dũng chung; từng ngành sinh hoạt khác nhau.",
     },
+
     eventsTitle: { en: "Coming up", vi: "Sắp tới" },
     eventsEmpty: {
       en: "No dated events in the file yet. Check the Sunday handout or email the chapter.",
@@ -109,8 +110,8 @@ export const copy = {
     announceTitle: { en: "Notes for families", vi: "Thông báo gia đình" },
     joinTitle: { en: "Show up once", vi: "Đến thử một buổi" },
     joinBody: {
-      en: "Bring your child a little before 9:00 for Vietnamese class (Thiếu set up from 8:30). Tell the door lead it’s your first Sunday. Stay through the morning; pick up by 2:00. Ask about fees, áo lam, and which ngành fits.",
-      vi: "Đưa các em tới trước 9:00 cho lớp Việt ngữ (Thiếu chuẩn bị từ 8:30). Nói với anh chị cửa là Chủ Nhật đầu. Ở lại buổi sáng; đón trước 2:00. Hỏi lệ phí, áo lam, và ngành phù hợp.",
+      en: "Bring your child a little before 9:00. Tell the door lead it’s your first Sunday. Stay through the morning; pick up by 2:00. Ask about fees, áo lam, and which ngành fits.",
+      vi: "Đưa các em tới trước 9:00. Nói với anh chị cửa là Chủ Nhật đầu. Ở lại buổi sáng; đón trước 2:00. Hỏi lệ phí, áo lam, và ngành phù hợp.",
     },
   },
   about: {
@@ -192,8 +193,8 @@ export const copy = {
   },
   footer: {
     mission: {
-      en: "GĐPT Anôma meets Sundays, 8:30 AM–2:00 PM. Ask any huynh trưởng in áo lam.",
-      vi: "GĐPT Anôma sinh hoạt Chủ Nhật, 8:30 sáng–2:00 chiều. Hỏi huynh trưởng mặc áo lam.",
+      en: "GĐPT Anôma meets Sundays, 9:00 AM–2:00 PM at 14867 Spinning Ave., Gardena, CA.",
+      vi: "GĐPT Anôma sinh hoạt Chủ Nhật, 9:00 sáng–2:00 chiều tại 14867 Spinning Ave., Gardena, CA.",
     },
   },
 } as const;

@@ -4,9 +4,9 @@ name:
   en: Thiếu Nam / Thiếu Nữ
   vi: Thiếu Nam / Thiếu Nữ
 ages:
-  en: "About 13–17"
-  vi: Khoảng 13–17 tuổi
+  en: "13–17 (Ngành Thiếu)"
+  vi: "13–17 tuổi (Ngành Thiếu)"
 summary:
-  en: "Deeper lessons, ngành skills, service projects, and preparing for trại (camps). Áo lam is expected once enrolled."
-  vi: Học sâu hơn, kỹ năng ngành, công tác, và chuẩn bị đi trại. Đã ghi danh thì mặc áo lam.
+  en: "Ngành Thiếu — deeper Phật pháp, đội/chúng skills, service, and trại. Bậc học Hướng Thiện → Chánh Thiện. Áo lam once enrolled."
+  vi: "Ngành Thiếu — Phật pháp sâu hơn, kỹ năng đội/chúng, công tác, và trại. Bậc học Hướng Thiện → Chánh Thiện. Đã ghi danh thì mặc áo lam."
 ---
