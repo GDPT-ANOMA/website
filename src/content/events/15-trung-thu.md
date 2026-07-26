@@ -1,7 +1,7 @@
 ---
 title:
-  en: Tết Trung Thu (Mid-Autumn Festival)
-  vi: TTVN/GĐPT — Tết Trung Thu
+  en: Mid-Autumn Festival
+  vi: Tết Trung Thu
 date: 2026-10-18
 time:
   en: "3:00 PM–8:00 PM"

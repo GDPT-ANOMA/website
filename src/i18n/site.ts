@@ -6,11 +6,15 @@ export const site = {
   nameShort: "GĐPT Anôma",
   nameVi: "Gia Đình Phật Tử Anôma",
   nameEn: "The Vietnamese Buddhist Youth Association",
+  foundation: {
+    en: "Vạn Hạnh Foundation",
+    vi: "Quỹ Vạn Hạnh",
+  },
   email: "gdptanoma@gmail.com",
   phoneDisplay: "(714) 555-0199",
   phoneTel: "+17145550199",
   textHint: {
-    en: "Text đoàn trưởng and say your child’s name + age.",
+    en: "Text the chapter lead with your child’s name and age.",
     vi: "Nhắn đoàn trưởng: tên + tuổi của con.",
   },
   address: {
@@ -26,7 +30,7 @@ export const site = {
     vi: "Chủ Nhật · 9:00 sáng–2:00 chiều",
   },
   wear: {
-    en: "Members wear áo lam. Guests: neat clothes, closed-toe shoes, water bottle.",
+    en: "Members wear the blue uniform (áo lam). Guests: neat clothes, closed-toe shoes, water bottle.",
     vi: "Đoàn sinh mặc áo lam. Khách: quần áo gọn, giày kín mũi, mang nước.",
   },
 } as const;
@@ -53,7 +57,7 @@ export const copy = {
   nav: {
     about: { en: "About", vi: "Giới thiệu" },
     schedule: { en: "Schedule", vi: "Lịch" },
-    nganh: { en: "Ngành", vi: "Ngành" },
+    nganh: { en: "Age groups", vi: "Ngành" },
     team: { en: "Leaders", vi: "Huynh trưởng" },
     contact: { en: "Contact", vi: "Liên hệ" },
   },
@@ -68,11 +72,11 @@ export const copy = {
       vi: "Gia Đình Phật Tử · Gardena, CA",
     },
     lead: {
-      en: "A Sunday chương trình for Vietnamese-American kids: formation, Phật pháp, and ngành time.",
+      en: "A Sunday program for Vietnamese-American kids: formation, Buddhist teachings, and age-group time.",
       vi: "Sinh hoạt Chủ Nhật cho các em Việt tại Mỹ: tập hợp, Phật pháp, và giờ ngành.",
     },
     photoAlt: {
-      en: "GĐPT Anôma members in áo lam with the chapter banner",
+      en: "GĐPT Anôma members in blue uniforms with the chapter banner",
       vi: "Đoàn sinh GĐPT Anôma mặc áo lam cùng bảng hiệu đoàn",
     },
     handoutLabel: {
@@ -80,7 +84,7 @@ export const copy = {
       vi: "Tờ lịch Chủ Nhật",
     },
     handoutTitle: {
-      en: "Tờ lịch Chủ Nhật",
+      en: "Sunday schedule",
       vi: "Tờ lịch Chủ Nhật",
     },
     handoutSub: {
@@ -92,13 +96,13 @@ export const copy = {
       vi: "Một Chủ Nhật của các em",
     },
     sundayBody: {
-      en: "They line up, move a little, then spend the morning in their ngành. Not a lecture hall. Younger kids sing and play; teens dig into lessons and skills. Parents can wait in the hall or help when asked.",
+      en: "They line up, move a little, then spend the morning in their age group. Not a lecture hall. Younger kids sing and play; teens dig into lessons and skills. Parents can wait in the hall or help when asked.",
       vi: "Tập hợp, vận động nhẹ, rồi sinh hoạt theo ngành. Không phải ngồi nghe giảng dài. Em nhỏ hát và chơi; thiếu niên học và luyện kỹ năng. Phụ huynh có thể ngồi hội trường hoặc phụ khi được nhờ.",
     },
     wearTitle: { en: "What to wear", vi: "Mặc gì" },
-    nganhTitle: { en: "Ngành", vi: "Ngành" },
+    nganhTitle: { en: "Age groups", vi: "Ngành" },
     nganhLead: {
-      en: "Three age ngành — Đồng (Oanh Vũ), Thiếu, Thanh — plus Ban Huynh Trưởng. Bi – Trí – Dũng is shared; Sunday looks different by ngành.",
+      en: "Three age groups — Đồng (Oanh Vũ), Thiếu, Thanh — plus the adult leaders. Bi – Trí – Dũng is shared; Sunday looks different by group.",
       vi: "Ba ngành theo tuổi — Đồng (Oanh Vũ), Thiếu, Thanh — cùng Ban Huynh Trưởng. Bi – Trí – Dũng chung; từng ngành sinh hoạt khác nhau.",
     },
 
@@ -113,14 +117,14 @@ export const copy = {
     announceTitle: { en: "Notes for families", vi: "Thông báo gia đình" },
     joinTitle: { en: "Show up once", vi: "Đến thử một buổi" },
     joinBody: {
-      en: "Bring your child a little before 9:00. Tell the door lead it’s your first Sunday. Stay through the morning; pick up by 2:00. Ask about fees, áo lam, and which ngành fits.",
+      en: "Bring your child a little before 9:00. Tell the door lead it’s your first Sunday. Stay through the morning; pick up by 2:00. Ask about fees, uniforms, and which age group fits.",
       vi: "Đưa các em tới trước 9:00. Nói với anh chị cửa là Chủ Nhật đầu. Ở lại buổi sáng; đón trước 2:00. Hỏi lệ phí, áo lam, và ngành phù hợp.",
     },
   },
   about: {
     title: { en: "About GĐPT Anôma", vi: "Về GĐPT Anôma" },
     lead: {
-      en: "We are a local chapter of Gia Đình Phật Tử, a Vietnamese Buddhist youth family. Kids grow up practicing Bi–Trí–Dũng with peers who share language, food, and Sunday habits.",
+      en: "We are a local chapter of the Vietnamese Buddhist Youth Association. Kids grow up practicing Bi–Trí–Dũng with peers who share language, food, and Sunday habits.",
       vi: "Chúng tôi là một đơn vị Gia Đình Phật Tử. Các em lớn lên với Bi–Trí–Dũng cùng bạn bè chung tiếng Việt, món ăn, và nếp Chủ Nhật.",
     },
     pillarsTitle: { en: "Bi – Trí – Dũng", vi: "Bi – Trí – Dũng" },
@@ -137,7 +141,7 @@ export const copy = {
       vi: "Dũng cảm làm việc khó và đúng cùng nhau.",
     },
     anthem: {
-      en: "We sing Sen Trắng. It is not background music. It is how the đoàn starts and ends big days.",
+      en: "We sing Sen Trắng. It is not background music. It is how the chapter starts and ends big days.",
       vi: "Chúng tôi hát Sen Trắng. Không phải nhạc nền. Đó là cách đoàn mở và kết những ngày lớn.",
     },
   },
@@ -147,7 +151,7 @@ export const copy = {
       en: "Weekly Sunday block first. Full 2026 chapter program below.",
       vi: "Khối Chủ Nhật trước. Chương trình Anôma năm 2026 ở dưới.",
     },
-    calendarTitle: { en: "From Google Calendar", vi: "Từ Google Calendar" },
+    calendarTitle: { en: "From Google Calendar", vi: "Từ lịch Google" },
   },
 
   teamPage: {
@@ -156,13 +160,13 @@ export const copy = {
       en: "Teams that run Sundays. Email Anh Hiệp for anything — forms, absences, pickup changes.",
       vi: "Các tổ điều hành Chủ Nhật. Mọi việc — giấy tờ, báo nghỉ, đổi người đón — email Anh Hiệp.",
     },
-    poc: { en: "POC", vi: "Liên hệ chính" },
+    poc: { en: "Point of contact", vi: "Liên hệ chính" },
     pocNote: {
-      en: "All email inquiries go to Anh Hiệp (đoàn trưởng).",
+      en: "All email inquiries go to Anh Hiệp (chapter lead).",
       vi: "Mọi email hỏi đoàn gửi cho Anh Hiệp (đoàn trưởng).",
     },
     empty: {
-      en: "No leaders listed yet. Email gdptanoma@gmail.com and ask for đoàn trưởng.",
+      en: "No leaders listed yet. Email gdptanoma@gmail.com and ask for the chapter lead.",
       vi: "Chưa có danh sách. Email gdptanoma@gmail.com hỏi đoàn trưởng.",
     },
   },
@@ -173,7 +177,7 @@ export const copy = {
       vi: "Ghi danh, báo nghỉ, hoặc đổi người đón: nên email. Ghi tên các em ở tiêu đề.",
     },
     formName: { en: "Your name", vi: "Họ tên" },
-    formEmail: { en: "Email", vi: "Email" },
+    formEmail: { en: "Email", vi: "Thư điện tử" },
     formSubject: { en: "Subject", vi: "Tiêu đề" },
     formMessage: { en: "Message", vi: "Nội dung" },
     formSubmit: { en: "Send", vi: "Gửi" },
@@ -184,7 +188,7 @@ export const copy = {
     },
     formErr: {
       en: "Could not send. Email gdptanoma@gmail.com directly.",
-      vi: "Gửi không được. Email thẳng gdptanoma@gmail.com.",
+      vi: "Gửi không được. Gửi thẳng tới gdptanoma@gmail.com.",
     },
   },
   notFound: {

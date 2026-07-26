@@ -10,7 +10,7 @@ place:
   en: Anôma · Gardena
   vi: Anôma · Gardena
 summary:
-  en: Register for Kỳ 2 (second semester) of the 2026 school year.
+  en: Register for the second semester of the 2026 school year.
   vi: Đăng ký cho niên khóa 2026 Kỳ 2.
 featured: true
 ---

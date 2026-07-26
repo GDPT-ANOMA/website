@@ -5,6 +5,6 @@ title:
   en: "Cleanup"
   vi: "Dọn dẹp"
 detail:
-  en: "Đoàn cleans up before lễ."
+  en: "The chapter cleans up before the ceremony."
   vi: "Đoàn dọn dẹp trước giờ lễ."
 ---

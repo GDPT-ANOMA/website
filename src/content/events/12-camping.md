@@ -1,11 +1,11 @@
 ---
 title:
-  en: Thanh / Thiếu / Huynh trưởng camping
-  vi: Thanh Thiếu H.Tr. Camping
+  en: Teen and leader camping
+  vi: Trại cắm trại Thanh · Thiếu · Huynh trưởng
 date: 2026-08-14
 endDate: 2026-08-16
 time:
-  en: Multi-day — details from đoàn trưởng
+  en: Multi-day — details from the chapter lead
   vi: Nhiều ngày — chi tiết từ đoàn trưởng
 place:
   en: Announced by chapter

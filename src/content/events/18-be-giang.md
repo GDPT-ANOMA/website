@@ -1,7 +1,7 @@
 ---
 title:
   en: Closing ceremony
-  vi: TTVN/GĐPT — Lễ Bế Giảng
+  vi: Lễ Bế Giảng
 date: 2026-12-20
 time:
   en: During Sunday program

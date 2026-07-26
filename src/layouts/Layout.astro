@@ -22,8 +22,8 @@ const {
   title,
   description =
     locale === "vi"
-      ? "GĐPT Anôma là đơn vị Gia Đình Phật Tử tại Văn Hạnh Foundation ở Gardena. Các em lớn lên với Bi–Trí–Dũng qua tập hợp, Phật pháp, và giờ ngành mỗi Chủ Nhật."
-      : "GĐPT Anôma is a Vietnamese Buddhist youth chapter at Văn Hạnh Foundation in Gardena. Kids grow with Bi–Trí–Dũng through Sunday formation, Phật pháp, and ngành activities.",
+      ? "GĐPT Anôma là đơn vị Gia Đình Phật Tử tại Quỹ Vạn Hạnh ở Gardena. Các em lớn lên với Bi–Trí–Dũng qua tập hợp, Phật pháp, và giờ ngành mỗi Chủ Nhật."
+      : "GĐPT Anôma is a Vietnamese Buddhist youth chapter at Vạn Hạnh Foundation in Gardena. Kids grow with Bi–Trí–Dũng through Sunday formation, Buddhist teachings, and age-group activities.",
 } = Astro.props;
 
 const nav = [
@@ -78,7 +78,7 @@ const htmlLang = locale === "vi" ? "vi" : "en";
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-sen focus:px-3 focus:py-2 focus:text-ink"
     >
-      Skip to content
+      {locale === "vi" ? "Chuyển tới nội dung" : "Skip to content"}
     </a>
 
     <header class="site-header" data-site-header>
@@ -96,12 +96,12 @@ const htmlLang = locale === "vi" ? "vi" : "en";
               {site.nameShort}
             </span>
             <span class="header-brand-sub block text-xs text-lam mt-0.5 sm:mt-1 truncate">
-              Văn Hạnh Foundation
+              {t(site.foundation, locale)}
             </span>
           </span>
         </a>
 
-        <nav class="header-nav hidden lg:grid" aria-label="Primary">
+        <nav class="header-nav hidden lg:grid" aria-label={locale === "vi" ? "Chính" : "Primary"}>
           {
             nav.map((item) => (
               <a
@@ -172,7 +172,7 @@ const htmlLang = locale === "vi" ? "vi" : "en";
         data-mobile-drawer
         hidden
       >
-        <nav class="mobile-drawer-nav page-wrap" aria-label="Primary">
+        <nav class="mobile-drawer-nav page-wrap" aria-label={locale === "vi" ? "Chính" : "Primary"}>
           {
             nav.map((item) => (
               <a

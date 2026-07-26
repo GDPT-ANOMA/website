@@ -1,7 +1,7 @@
 ---
 title:
-  en: TTVN opening day
-  vi: TTVN lớp khai giảng
+  en: Vietnamese language opening day
+  vi: Khai giảng lớp Việt ngữ
 date: 2026-01-11
 time:
   en: During Sunday program

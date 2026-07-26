@@ -1,7 +1,7 @@
 ---
 title:
-  en: Lễ Vu Lan
-  vi: TTVN/GĐPT tổ chức Lễ Vu Lan
+  en: Vu Lan (Parents’ Day)
+  vi: Lễ Vu Lan
 date: 2026-09-20
 time:
   en: During Sunday program
