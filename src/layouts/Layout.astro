@@ -50,10 +50,11 @@ const htmlLang = locale === "vi" ? "vi" : "en";
 ---
 
 <!doctype html>
-<html lang={htmlLang} transition:animate="none">
+<html lang={htmlLang} translate="no" class="notranslate" transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google" content="notranslate" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/logos/gdpt.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
@@ -78,8 +79,8 @@ const htmlLang = locale === "vi" ? "vi" : "en";
     </a>
 
     <header class="site-header">
-      <div class="page-wrap flex items-center justify-between gap-4 py-3">
-        <a href={localePath(locale)} class="flex items-center gap-3 min-w-0">
+      <div class="page-wrap header-bar py-3">
+        <a href={localePath(locale)} class="header-brand flex items-center gap-3 min-w-0">
           <img
             src="/logos/gdpt.svg"
             alt=""
@@ -91,13 +92,16 @@ const htmlLang = locale === "vi" ? "vi" : "en";
             <span class="block font-bold text-lam-deep text-lg leading-none truncate">
               {site.nameShort}
             </span>
-            <span class="block text-xs text-lam mt-1 truncate" lang="vi">
+            <span
+              class="header-brand-sub block text-xs text-lam mt-1 truncate"
+              lang="vi"
+            >
               {locale === "vi" ? site.nameEn : site.nameVi}
             </span>
           </span>
         </a>
 
-        <nav class="hidden lg:flex items-center gap-6" aria-label="Primary">
+        <nav class="header-nav hidden lg:flex items-center gap-3" aria-label="Primary">
           {
             nav.map((item) => (
               <a
@@ -111,11 +115,10 @@ const htmlLang = locale === "vi" ? "vi" : "en";
           }
         </nav>
 
-        <div class="flex items-center gap-2 sm:gap-3">
+        <div class="header-end flex items-center justify-end gap-2 sm:gap-3">
           <div
             class="lang-slider"
             data-locale={locale}
-            transition:persist="lang-slider"
             role="group"
             aria-label={locale === "vi" ? "Ngôn ngữ" : "Language"}
           >
@@ -214,7 +217,7 @@ const htmlLang = locale === "vi" ? "vi" : "en";
         © {new Date().getFullYear()} {site.nameShort}
       </div>
     </footer>
-    <script is:inline src="/lang-morph.js?v=3"></script>
+    <script is:inline src="/lang-morph.js?v=10"></script>
   </body>
 </html>
 

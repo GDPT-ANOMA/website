@@ -102,7 +102,7 @@
 
 @layer components {
   .page-wrap {
-    width: min(100% - 2rem, var(--page));
+    width: min(100% - 1.25rem, var(--page));
     margin-inline: auto;
   }
 
@@ -117,6 +117,7 @@
     font-size: var(--text-sm);
     text-decoration: none;
     border: 1px solid transparent;
+    box-sizing: border-box;
     transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
   }
 
@@ -194,10 +195,42 @@
     border-bottom: 1px solid var(--rule);
   }
 
+  /* 3 equal columns → nav stays put when brand/CTA label lengths change */
+  .header-bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .header-brand {
+    justify-self: start;
+    min-width: 0;
+  }
+
+  .header-nav {
+    justify-self: center;
+  }
+
+  .header-end {
+    justify-self: end;
+    min-width: 0;
+  }
+
+  @media (max-width: 1023px) {
+    .header-bar {
+      grid-template-columns: 1fr auto;
+    }
+
+    .header-nav {
+      display: none;
+    }
+  }
+
   .header-action {
     min-height: 2.75rem;
     min-width: 5.5rem;
-    padding-inline: 1rem;
+    padding-inline: 0.75rem;
     box-sizing: border-box;
   }
 
@@ -258,126 +291,41 @@
     display: inline;
   }
 
-  /* Kill every VT layer — Astro uses named scopes, not just root.
-     plus-lighter blend is what flashes white. */
-  html.lang-morphing::view-transition-group(*),
-  html.lang-morphing::view-transition-old(*),
-  html.lang-morphing::view-transition-new(*),
-  html.lang-morphing::view-transition-image-pair(*) {
-    animation: none !important;
-    mix-blend-mode: normal !important;
+  .lang-morph-run {
+    display: inline-grid;
+    vertical-align: baseline;
+    justify-items: start;
   }
 
-  html.lang-morphing::view-transition-old(root),
-  html.lang-morphing::view-transition-new(root) {
-    animation: none !important;
-    mix-blend-mode: normal !important;
-    height: 100%;
-    overflow: clip;
+  .lang-morph-run--ui {
+    vertical-align: middle;
+    justify-items: center;
+    align-items: center;
   }
 
-  /* Park copy only — paper, images, header chrome, slider stay painted */
-  html.lang-morph-pre .site-header :where(
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      p,
-      li,
-      dt,
-      dd,
-      a,
-      span,
-      strong,
-      em,
-      b,
-      i,
-      small,
-      label,
-      button,
-      summary,
-      figcaption,
-      blockquote,
-      td,
-      th,
-      time
-    ):not(.lang-slider, .lang-slider *),
-  html.lang-morph-pre #main :where(
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      p,
-      li,
-      dt,
-      dd,
-      a,
-      span,
-      strong,
-      em,
-      b,
-      i,
-      small,
-      label,
-      button,
-      summary,
-      figcaption,
-      blockquote,
-      td,
-      th,
-      time
-    ),
-  html.lang-morph-pre footer :where(
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      p,
-      li,
-      dt,
-      dd,
-      a,
-      span,
-      strong,
-      em,
-      b,
-      i,
-      small,
-      label,
-      button,
-      summary,
-      figcaption,
-      blockquote,
-      td,
-      th,
-      time
-    ) {
-    color: transparent !important;
-    -webkit-text-fill-color: transparent !important;
-    text-shadow: none !important;
+  .lang-morph-layer {
+    grid-area: 1 / 1;
   }
 
-  html.lang-morph-words .lang-word {
+  .lang-morph-run--ui .lang-morph-layer {
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .lang-morph-run--ui .lang-morph-in {
     opacity: 0;
   }
 
-  html.lang-morphing .handout {
-    animation: none !important;
+  .lang-morph-in .lang-word {
+    opacity: 0;
   }
 
-  #lang-morph-overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 25;
-    pointer-events: none;
-    background: transparent;
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
   }
 
   .nav-link[aria-current="page"] {
