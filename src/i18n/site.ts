@@ -144,8 +144,8 @@ export const copy = {
   schedulePage: {
     title: { en: "Schedule & events", vi: "Lịch sinh hoạt" },
     lead: {
-      en: "Weekly Sunday block first. Full 2026 chapter program below. Google Calendar sync appears when keys are set.",
-      vi: "Khối Chủ Nhật trước. Chương trình Anôma năm 2026 ở dưới. Lịch Google hiện khi đã cấu hình khóa.",
+      en: "Weekly Sunday block first. Full 2026 chapter program below.",
+      vi: "Khối Chủ Nhật trước. Chương trình Anôma năm 2026 ở dưới.",
     },
     calendarTitle: { en: "From Google Calendar", vi: "Từ Google Calendar" },
   },
@@ -153,8 +153,13 @@ export const copy = {
   teamPage: {
     title: { en: "Leaders", vi: "Huynh trưởng" },
     lead: {
-      en: "People who run Sundays. Email the chapter if you need a name for a form or a pickup change.",
-      vi: "Người điều hành Chủ Nhật. Email đoàn nếu cần tên cho giấy tờ hoặc đổi người đón.",
+      en: "Teams that run Sundays. Email Anh Hiệp for anything — forms, absences, pickup changes.",
+      vi: "Các tổ điều hành Chủ Nhật. Mọi việc — giấy tờ, báo nghỉ, đổi người đón — email Anh Hiệp.",
+    },
+    poc: { en: "POC", vi: "Liên hệ chính" },
+    pocNote: {
+      en: "All email inquiries go to Anh Hiệp (đoàn trưởng).",
+      vi: "Mọi email hỏi đoàn gửi cho Anh Hiệp (đoàn trưởng).",
     },
     empty: {
       en: "No leaders listed yet. Email gdptanoma@gmail.com and ask for đoàn trưởng.",

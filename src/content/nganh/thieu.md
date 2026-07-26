@@ -7,6 +7,6 @@ ages:
   en: "13–17 (Ngành Thiếu)"
   vi: "13–17 tuổi (Ngành Thiếu)"
 summary:
-  en: "Ngành Thiếu — deeper Phật pháp, đội/chúng skills, service, and trại. Bậc học Hướng Thiện → Chánh Thiện. Áo lam once enrolled."
-  vi: "Ngành Thiếu — Phật pháp sâu hơn, kỹ năng đội/chúng, công tác, và trại. Bậc học Hướng Thiện → Chánh Thiện. Đã ghi danh thì mặc áo lam."
+  en: "Ngành Thiếu — deeper Phật pháp, đội/chúng skills, service, and trại. Bậc học Hướng Thiện → Chánh Thiện."
+  vi: "Ngành Thiếu — Phật pháp sâu hơn, kỹ năng đội/chúng, công tác, và trại. Bậc học Hướng Thiện → Chánh Thiện."
 ---

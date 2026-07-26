@@ -40,25 +40,6 @@ const announcements = defineCollection({
   }),
 });
 
-const staff = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/staff" }),
-  schema: z.object({
-    order: z.number(),
-    name: z.string(),
-    role: z.enum([
-      "doan-truong",
-      "pho-doan-truong",
-      "huynh-truong",
-      "thieu",
-      "thanh",
-      "oanh-vu",
-    ]),
-    roleLabel: localeString,
-    focus: localeString.optional(),
-    contact: z.string().optional(),
-  }),
-});
-
 const schedule = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/schedule" }),
   schema: z.object({
@@ -82,7 +63,6 @@ export const collections = {
   nganh,
   events,
   announcements,
-  staff,
   schedule,
   "calendar-events": calendarEvents,
 };

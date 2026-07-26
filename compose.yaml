@@ -1,0 +1,48 @@
+name: gdpt-website
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      secrets:
+        - env
+    image: gdpt-website:local
+    restart: unless-stopped
+    expose:
+      - "4321"
+    env_file:
+      - .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: "4321"
+      NODE_ENV: production
+    networks:
+      - gdpt
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "bun",
+          "-e",
+          "fetch('http://127.0.0.1:4321').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+networks:
+  gdpt:
+    driver: bridge
+
+secrets:
+  env:
+    file: .env

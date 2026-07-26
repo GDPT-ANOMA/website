@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+import {
+  formatLeaderName,
+  getPoc,
+  leadershipTeams,
+  POC_EMAIL,
+  SHOW_HONORIFICS,
+} from "../data/leadership";
+import { copy, site, t, type Locale } from "../i18n/site";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const lang = locale;
+const poc = getPoc();
+const title =
+  locale === "vi"
+    ? `Huynh trưởng — ${site.nameShort}`
+    : `Leaders — ${site.nameShort}`;
+---
+
+<Layout title={title} locale={locale}>
+  <main class="page-wrap py-[var(--space-section)]">
+    <h1 class="font-extrabold m-0 mb-2" style="font-size: var(--text-3xl);" lang={lang}>
+      {t(copy.teamPage.title, locale)}
+    </h1>
+    <p class="m-0 mb-8 max-w-2xl text-[0.95rem] leading-snug" lang={lang}>
+      {t(copy.teamPage.lead, locale)}
+    </p>
+
+    {
+      leadershipTeams.length === 0 ? (
+        <p lang={lang}>{t(copy.teamPage.empty, locale)}</p>
+      ) : (
+        <div class="grid gap-8 max-w-3xl">
+          {leadershipTeams.map((team) => (
+            <section>
+              <h2 class="text-sm font-bold tracking-wide text-la m-0 mb-2" lang={lang}>
+                {t(team.label, locale)}
+              </h2>
+              <p class="m-0 text-[0.95rem] leading-relaxed text-pretty">
+                {team.members.map((person, i) => (
+                  <>
+                    {i > 0 && <span class="text-lam-deep/35"> · </span>}
+                    <span class:list={[{ "font-semibold text-lam-deep": person.poc }]}>
+                      {formatLeaderName(person, locale, SHOW_HONORIFICS)}
+                    </span>
+                    {person.poc && (
+                      <>
+                        <span class="text-lam-deep/45"> — </span>
+                        <span class="text-xs font-semibold uppercase tracking-wide text-la">
+                          {t(copy.teamPage.poc, locale)}
+                        </span>
+                        <span class="text-lam-deep/45"> · </span>
+                        <a
+                          class="text-lam-deep underline underline-offset-2 text-sm"
+                          href={`mailto:${POC_EMAIL}`}
+                        >
+                          {POC_EMAIL}
+                        </a>
+                      </>
+                    )}
+                  </>
+                ))}
+              </p>
+            </section>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      poc && (
+        <p class="m-0 mt-10 max-w-2xl text-sm text-lam-deep/80" lang={lang}>
+          {t(copy.teamPage.pocNote, locale)}
+        </p>
+      )
+    }
+  </main>
+</Layout>
