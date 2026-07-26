@@ -132,119 +132,85 @@
     );
   }
 
+  function isFitButton(ui) {
+    return ui instanceof HTMLElement && ui.classList.contains("btn");
+  }
+
+  function contentBoxWidth(el) {
+    const cs = getComputedStyle(el);
+    return Math.max(
+      0,
+      el.clientWidth -
+        (parseFloat(cs.paddingLeft) || 0) -
+        (parseFloat(cs.paddingRight) || 0),
+    );
+  }
+
+  /** CSS design size — ignores any inline fit we already applied. */
+  function baseFontSize(el) {
+    const kept = el.style.fontSize;
+    el.style.fontSize = "";
+    const px = parseFloat(getComputedStyle(el).fontSize) || 14;
+    el.style.fontSize = kept;
+    return px;
+  }
+
+  function measureTextWidth(text, el, fontPx) {
+    const cs = getComputedStyle(el);
+    const probe = document.createElement("span");
+    probe.style.cssText = [
+      "position:absolute",
+      "left:-9999px",
+      "top:0",
+      "visibility:hidden",
+      "white-space:nowrap",
+      "font-family:" + cs.fontFamily,
+      "font-weight:" + cs.fontWeight,
+      "font-style:" + cs.fontStyle,
+      "letter-spacing:" + cs.letterSpacing,
+      "font-size:" + fontPx + "px",
+    ].join(";");
+    probe.textContent = text;
+    document.body.appendChild(probe);
+    const w = probe.getBoundingClientRect().width;
+    probe.remove();
+    return w;
+  }
+
+  function fitFontSize(text, el, availPx) {
+    const base = baseFontSize(el);
+    const t = String(text || "").trim();
+    if (!t || !(availPx > 0)) return base;
+    const w = measureTextWidth(t, el, base);
+    if (!(w > 0) || w <= availPx) return base;
+    // Floor ~75% of design size so it stays readable
+    return Math.max(base * 0.75, (base * availPx) / w);
+  }
+
+  function freezeButtonBox(ui, widthPx) {
+    const w = Math.ceil(widthPx);
+    if (!(w > 0)) return;
+    ui.style.boxSizing = "border-box";
+    ui.style.width = w + "px";
+    ui.style.minWidth = w + "px";
+    ui.style.maxWidth = w + "px";
+    ui.style.whiteSpace = "nowrap";
+    ui.style.overflow = "hidden";
+    ui.style.flexShrink = "0";
+  }
+
+  // Nav links only: hold width for the crossfade, then release.
   function lockUiSize(ui, width) {
     if (!(ui instanceof HTMLElement) || !(width > 0)) return;
+    if (isFitButton(ui)) return;
     const prev = parseFloat(ui.style.minWidth) || 0;
     const next = Math.ceil(Math.max(prev, width));
     if (next > prev) ui.style.minWidth = next + "px";
   }
 
-  function equalizeNavGroup(selector, newDoc) {
-    const cur = [...document.querySelectorAll(selector)];
-    if (cur.length < 2) return;
-
-    const next = newDoc
-      ? [...newDoc.querySelectorAll(selector)]
-      : [];
-
-    const probe = document.createElement("span");
-    const cs = getComputedStyle(cur[0]);
-    probe.style.cssText = [
-      "position:absolute",
-      "left:-9999px",
-      "top:0",
-      "visibility:hidden",
-      "white-space:nowrap",
-      "font:" + cs.font,
-      "font-weight:600",
-      "letter-spacing:" + cs.letterSpacing,
-      "text-transform:" + cs.textTransform,
-    ].join(";");
-    document.body.appendChild(probe);
-
-    let maxContent = 0;
-    for (let i = 0; i < cur.length; i++) {
-      const texts = [(cur[i].textContent || "").trim()];
-      if (next[i]) texts.push((next[i].textContent || "").trim());
-      for (const t of texts) {
-        if (!t) continue;
-        probe.textContent = t;
-        maxContent = Math.max(maxContent, probe.getBoundingClientRect().width);
-      }
-    }
-    probe.remove();
-
-    const pad =
-      (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
-    const border =
-      (parseFloat(cs.borderLeftWidth) || 0) +
-      (parseFloat(cs.borderRightWidth) || 0);
-
-    let maxW = Math.ceil(maxContent + pad + border);
-    for (const a of cur) {
-      maxW = Math.max(
-        maxW,
-        Math.ceil(a.getBoundingClientRect().width),
-        Math.ceil(parseFloat(a.style.minWidth) || 0),
-      );
-    }
-
-    for (const a of cur) a.style.minWidth = maxW + "px";
-  }
-
-  function equalizeNav(newDoc) {
-    equalizeNavGroup('header nav[aria-label="Primary"] .nav-link', newDoc);
-    equalizeNavGroup(".mobile-drawer .nav-link", newDoc);
-    lockPairWidth(
-      ".header-end .btn.header-action",
-      newDoc,
-    );
-    lockPairWidth(".header-brand-sub", newDoc);
-  }
-
-  function lockPairWidth(selector, newDoc) {
-    const cur = document.querySelector(selector);
-    const next = newDoc ? newDoc.querySelector(selector) : null;
-    if (!(cur instanceof HTMLElement)) return;
-
-    const probe = document.createElement("span");
-    const cs = getComputedStyle(cur);
-    probe.style.cssText = [
-      "position:absolute",
-      "left:-9999px",
-      "top:0",
-      "visibility:hidden",
-      "white-space:nowrap",
-      "font:" + cs.font,
-      "font-weight:" + cs.fontWeight,
-      "letter-spacing:" + cs.letterSpacing,
-    ].join(";");
-    document.body.appendChild(probe);
-
-    let maxContent = 0;
-    for (const t of [
-      (cur.textContent || "").trim(),
-      next ? (next.textContent || "").trim() : "",
-    ]) {
-      if (!t) continue;
-      probe.textContent = t;
-      maxContent = Math.max(maxContent, probe.getBoundingClientRect().width);
-    }
-    probe.remove();
-
-    const pad =
-      (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
-    const border =
-      (parseFloat(cs.borderLeftWidth) || 0) +
-      (parseFloat(cs.borderRightWidth) || 0);
-    const w = Math.ceil(
-      Math.max(
-        maxContent + pad + border,
-        cur.getBoundingClientRect().width,
-        parseFloat(cur.style.minWidth) || 0,
-      ),
-    );
-    cur.style.minWidth = w + "px";
+  function releaseUiSize(ui) {
+    if (!(ui instanceof HTMLElement) || isFitButton(ui)) return;
+    ui.style.minWidth = "";
   }
 
   function buildWordLayer(words, className, lead, trail) {
@@ -288,8 +254,10 @@
 
     if (instant) {
       textNode.textContent = nextText;
-      if (ui instanceof HTMLElement) {
-        lockUiSize(ui, Math.max(beforeUiW, ui.getBoundingClientRect().width));
+      if (isFitButton(ui)) {
+        freezeButtonBox(ui, beforeUiW || ui.getBoundingClientRect().width);
+        const fit = fitFontSize(nextText, ui, contentBoxWidth(ui));
+        ui.style.fontSize = fit + "px";
       }
       return;
     }
@@ -307,9 +275,12 @@
 
     const run = document.createElement("span");
     const base = posDelay(parent);
+    const ease = "cubic-bezier(0.16, 1, 0.3, 1)";
+    const dur = WORD_MS * 2;
+    const fitBtn = isFitButton(ui);
 
-    // Buttons/nav: one centered crossfade of the full label (no per-word reflow)
-    if (ui) {
+    // Nav (non-button) chrome: full-label crossfade
+    if (ui && !fitBtn) {
       run.className = "lang-morph-run lang-morph-run--ui";
       const out = buildPlainLayer(prev, "lang-morph-out");
       const inn = buildPlainLayer(nextText, "lang-morph-in");
@@ -323,25 +294,31 @@
       await sleep(base);
       await Promise.all([
         out.animate([{ opacity: 1 }, { opacity: 0 }], {
-          duration: WORD_MS * 2,
-          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          duration: dur,
+          easing: ease,
           fill: "forwards",
         }).finished,
         inn.animate([{ opacity: 0 }, { opacity: 1 }], {
-          duration: WORD_MS * 2,
-          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          duration: dur,
+          easing: ease,
           fill: "forwards",
         }).finished,
       ]);
 
       out.remove();
       run.replaceWith(document.createTextNode(finalText));
-      lockUiSize(ui, Math.max(beforeUiW, ui.getBoundingClientRect().width));
+      releaseUiSize(ui);
       return;
     }
 
-    // Prose: stacked word layers, TL→BR stagger
-    run.className = "lang-morph-run";
+    // Prose + buttons: stacked word layers, TL→BR stagger
+    if (fitBtn) {
+      freezeButtonBox(ui, beforeUiW || ui.getBoundingClientRect().width);
+      run.className = "lang-morph-run lang-morph-run--ui";
+    } else {
+      run.className = "lang-morph-run";
+    }
+
     const out = buildWordLayer(oldWords, "lang-morph-out", lead, trail);
     const inn = buildWordLayer(newWords, "lang-morph-in", lead, trail);
     inn.layer.setAttribute("aria-hidden", "true");
@@ -350,34 +327,59 @@
     parent.replaceChild(run, textNode);
 
     const max = Math.max(out.spans.length, inn.spans.length);
-    await Promise.all(
-      Array.from({ length: max }, async (_, i) => {
+    /** @type {Promise<unknown>[]} */
+    const jobs = [
+      ...Array.from({ length: max }, async (_, i) => {
         await sleep(base + i * WORD_STAGGER);
-        const jobs = [];
+        const step = [];
         if (out.spans[i]) {
-          jobs.push(
+          step.push(
             out.spans[i].animate([{ opacity: 1 }, { opacity: 0 }], {
               duration: WORD_MS,
-              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+              easing: ease,
               fill: "forwards",
             }).finished,
           );
         }
         if (inn.spans[i]) {
-          jobs.push(
+          step.push(
             inn.spans[i].animate([{ opacity: 0 }, { opacity: 1 }], {
               duration: WORD_MS,
-              easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+              easing: ease,
               fill: "forwards",
             }).finished,
           );
         }
-        await Promise.all(jobs);
+        await Promise.all(step);
       }),
-    );
+    ];
+
+    let inFit = 0;
+    if (fitBtn) {
+      const avail = contentBoxWidth(ui);
+      const outFit = fitFontSize(prev, ui, avail);
+      inFit = fitFontSize(nextText, ui, avail);
+      run.style.fontSize = outFit + "px";
+      const fontDur = Math.max(
+        WORD_MS,
+        base + Math.max(0, max - 1) * WORD_STAGGER + WORD_MS,
+      );
+      jobs.push(
+        run.animate(
+          [
+            { fontSize: outFit + "px" },
+            { fontSize: inFit + "px" },
+          ],
+          { duration: fontDur, easing: ease, fill: "forwards" },
+        ).finished,
+      );
+    }
+
+    await Promise.all(jobs);
 
     out.layer.remove();
     run.replaceWith(document.createTextNode(finalText));
+    if (fitBtn) ui.style.fontSize = inFit + "px";
   }
 
   async function morphToDocument(newDoc, locale, href) {
@@ -386,16 +388,11 @@
     const count = Math.min(fromNodes.length, toNodes.length);
     const instant = reducedMotion();
 
-    // Uniform nav widths = max label across all items × both locales (before morph)
-    equalizeNav(newDoc);
-
     await Promise.all(
       Array.from({ length: count }, (_, i) =>
         morphTextNode(fromNodes[i], toNodes[i].textContent || "", instant),
       ),
     );
-
-    equalizeNav(newDoc);
 
     const newTitle = newDoc.querySelector("title");
     if (newTitle) document.title = newTitle.textContent || document.title;
@@ -475,14 +472,14 @@
 
   let warmPromise = null;
 
-  async function warmNavWidths() {
+  // Prefetch alt locale for faster EN↔VI switches (no width locking).
+  async function warmAltDoc() {
     if (warmPromise) return warmPromise;
     warmPromise = (async () => {
       try {
-        const doc = await fetchAltDoc();
-        if (doc) equalizeNav(doc);
+        await fetchAltDoc();
       } catch {
-        /* ignore — widths settle on first lang switch */
+        /* ignore — fetch again on first lang switch */
       } finally {
         warmPromise = null;
       }
@@ -517,7 +514,7 @@
 
   function onPageReady() {
     syncSlider(localeOf(location.pathname));
-    void warmNavWidths();
+    void warmAltDoc();
   }
 
   document.addEventListener("astro:page-load", onPageReady);

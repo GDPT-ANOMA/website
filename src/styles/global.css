@@ -352,7 +352,8 @@
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    gap: 1rem;
+    column-gap: 1.75rem;
+    row-gap: 0.75rem;
     padding-block: 0.75rem;
     background: var(--paper);
   }
@@ -378,6 +379,7 @@
   .header-end {
     justify-self: end;
     min-width: 0;
+    padding-inline-start: 0.5rem;
   }
 
   @media (max-width: 1023px) {
@@ -406,6 +408,8 @@
     min-width: 7.5rem;
     padding-inline: 0.75rem;
     box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .nav-toggle {
@@ -619,6 +623,7 @@
     vertical-align: middle;
     justify-items: center;
     align-items: center;
+    max-width: 100%;
   }
 
   .lang-morph-layer {
@@ -628,6 +633,7 @@
   .lang-morph-run--ui .lang-morph-layer {
     white-space: nowrap;
     text-align: center;
+    max-width: 100%;
   }
 
   .lang-morph-run--ui .lang-morph-in {
