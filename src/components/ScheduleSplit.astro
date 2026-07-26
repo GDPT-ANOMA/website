@@ -1,0 +1,196 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { copy, localePath, site, t, type Locale } from "../i18n/site";
+
+interface Props {
+  locale: Locale;
+  schedule: CollectionEntry<"schedule">[];
+  events: CollectionEntry<"events">[];
+  /** Show link to full schedule page (home only) */
+  scheduleLink?: boolean;
+  pageSize?: number;
+}
+
+const {
+  locale,
+  schedule,
+  events,
+  scheduleLink = false,
+  pageSize = 7,
+} = Astro.props;
+
+const lang = locale === "vi" ? "vi" : "en";
+const pages = Math.max(1, Math.ceil(events.length / pageSize));
+
+function fmtDate(d: Date): string {
+  return d.toLocaleDateString(locale === "vi" ? "vi-VN" : "en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+function fmtEventDate(start: Date, end?: Date): string {
+  if (!end || end.valueOf() === start.valueOf()) return fmtDate(start);
+  return `${fmtDate(start)} – ${fmtDate(end)}`;
+}
+---
+
+<div class="split-board">
+  <article class="split-panel handout">
+    <header class="split-panel-head">
+      <div class="min-w-0">
+        <p class="split-kicker m-0" lang={lang}>{t(copy.home.handoutLabel, locale)}</p>
+        <h2 class="split-title m-0" lang="vi">{t(copy.home.handoutTitle, locale)}</h2>
+        <p class="split-sub m-0" lang={lang}>{t(site.sunday, locale)}</p>
+      </div>
+      <img src="/logos/gdpt.svg" alt="" width="36" height="36" class="shrink-0" />
+    </header>
+
+    <div class="split-panel-body">
+      {
+        schedule.map((row) => (
+          <div class="handout-row handout-row-compact">
+            <time class="handout-time" datetime={`T${row.data.time}`}>{row.data.time}</time>
+            <div class="min-w-0">
+              <p class="handout-row-title m-0" lang={lang}>{t(row.data.title, locale)}</p>
+              <p class="handout-row-detail m-0" lang={lang}>{t(row.data.detail, locale)}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="split-foot m-0" lang={lang}>{t(site.wear, locale)}</p>
+  </article>
+
+  <div class="split-panel events-panel" data-events-page-size={pageSize}>
+    <header class="split-panel-head">
+      <div class="min-w-0">
+        <p class="split-kicker m-0" lang={lang}>
+          {locale === "vi" ? "Chương trình" : "Program"}
+        </p>
+        <h2 class="split-title m-0" lang={lang}>{t(copy.home.eventsTitle, locale)}</h2>
+        <p class="split-sub m-0" lang={lang}>
+          {events.length === 0
+            ? t(copy.home.eventsEmpty, locale)
+            : locale === "vi"
+              ? `${events.length} sự kiện`
+              : `${events.length} events`}
+        </p>
+      </div>
+      {
+        scheduleLink && (
+          <a class="text-sm font-semibold text-la shrink-0" href={localePath(locale, "/schedule")}>
+            {t(copy.nav.schedule, locale)}
+          </a>
+        )
+      }
+    </header>
+
+    {
+      events.length === 0 ? (
+        <p class="text-lam text-sm m-0" lang={lang}>{t(copy.home.eventsEmpty, locale)}</p>
+      ) : (
+        <>
+          <ul class="events-list list-none m-0 p-0 divide-y divide-[color:var(--rule)] split-panel-body" data-events-list>
+            {events.map((event, i) => (
+              <li class="events-item" data-event-index={i} hidden={i >= pageSize}>
+                <p class="events-date m-0">{fmtEventDate(event.data.date, event.data.endDate)}</p>
+                <h3 class="events-title m-0" lang={lang}>{t(event.data.title, locale)}</h3>
+                <p class="events-meta m-0" lang={lang}>
+                  {t(event.data.time, locale)} · {t(event.data.place, locale)}
+                </p>
+              </li>
+            ))}
+          </ul>
+
+          {events.length > pageSize ? (
+            <nav
+              class="events-pager split-foot-nav"
+              aria-label={t(copy.home.eventsTitle, locale)}
+              data-events-pager
+            >
+              <button
+                type="button"
+                class="btn btn-ghost events-pager-btn"
+                data-events-prev
+                disabled
+                lang={lang}
+              >
+                {t(copy.home.eventsPrev, locale)}
+              </button>
+              <p class="events-pager-status m-0" data-events-status lang={lang}>
+                {t(copy.home.eventsPage, locale)}{" "}
+                <span data-events-page>1</span>/<span data-events-pages>{pages}</span>
+              </p>
+              <button
+                type="button"
+                class="btn btn-ghost events-pager-btn"
+                data-events-next
+                lang={lang}
+              >
+                {t(copy.home.eventsNext, locale)}
+              </button>
+            </nav>
+          ) : (
+            <p class="split-foot m-0" lang={lang}>
+              {locale === "vi" ? "Chương trình năm 2026" : "2026 chapter program"}
+            </p>
+          )}
+        </>
+      )
+    }
+  </div>
+</div>
+
+<script>
+  function initEventsPager(root: HTMLElement) {
+    if (root.dataset.pagerBound === "1") return;
+    root.dataset.pagerBound = "1";
+
+    const pageSize = Number(root.dataset.eventsPageSize || 7);
+    const items = Array.from(root.querySelectorAll<HTMLElement>("[data-event-index]"));
+    const prev = root.querySelector<HTMLButtonElement>("[data-events-prev]");
+    const next = root.querySelector<HTMLButtonElement>("[data-events-next]");
+    const pageEl = root.querySelector<HTMLElement>("[data-events-page]");
+    if (!prev || !next || !pageEl || items.length <= pageSize) return;
+
+    const pages = Math.ceil(items.length / pageSize);
+    let page = 0;
+
+    const render = () => {
+      const start = page * pageSize;
+      const end = start + pageSize;
+      for (const item of items) {
+        const i = Number(item.dataset.eventIndex);
+        item.hidden = i < start || i >= end;
+      }
+      pageEl.textContent = String(page + 1);
+      prev.disabled = page === 0;
+      next.disabled = page >= pages - 1;
+    };
+
+    prev.addEventListener("click", () => {
+      if (page === 0) return;
+      page -= 1;
+      render();
+    });
+    next.addEventListener("click", () => {
+      if (page >= pages - 1) return;
+      page += 1;
+      render();
+    });
+
+    render();
+  }
+
+  const boot = () => {
+    document.querySelectorAll<HTMLElement>(".events-panel").forEach(initEventsPager);
+  };
+
+  boot();
+  document.addEventListener("astro:page-load", boot);
+</script>

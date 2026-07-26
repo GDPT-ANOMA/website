@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import chapterGroup from "../../assets/chapter-group.jpg";
+import ScheduleSplit from "../ScheduleSplit.astro";
 import { copy, localePath, site, t, type Locale } from "../../i18n/site";
 
 interface Props {
@@ -14,16 +15,6 @@ interface Props {
 
 const { locale, schedule, nganh, events, announcements } = Astro.props;
 const lang = locale === "vi" ? "vi" : "en";
-
-function fmtDate(d: Date): string {
-  return d.toLocaleDateString(locale === "vi" ? "vi-VN" : "en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-}
 ---
 
 <main>
@@ -67,50 +58,9 @@ function fmtDate(d: Date): string {
     />
   </figure>
 
-  <!-- Signature: Sunday handout -->
-  <section class="page-wrap py-[var(--space-section)]" aria-labelledby="handout-title">
-    <article class="handout p-5 sm:p-8 max-w-3xl">
-      <header class="flex items-start justify-between gap-4 mb-6">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-lam m-0 mb-2">
-            {t(copy.home.handoutLabel, locale)}
-          </p>
-          <h2 id="handout-title" class="text-2xl sm:text-3xl font-extrabold m-0" lang="vi">
-            {t(copy.home.handoutTitle, locale)}
-          </h2>
-          <p class="text-sm text-lam mt-2 mb-0" lang={lang}>
-            {t(copy.home.handoutSub, locale)}
-          </p>
-        </div>
-        <img src="/logos/gdpt.svg" alt="" width="56" height="56" class="shrink-0" />
-      </header>
-
-      <p class="text-sm font-bold text-lam-deep m-0 mb-4 pb-3 border-b border-rule">
-        {t(site.sunday, locale)}
-      </p>
-
-      <div>
-        {
-          schedule.map((row) => (
-            <div class="handout-row">
-              <time class="handout-time" datetime={`T${row.data.time}`}>{row.data.time}</time>
-              <div>
-                <p class="font-semibold text-lam-deep m-0" lang={lang}>
-                  {t(row.data.title, locale)}
-                </p>
-                <p class="text-sm text-ink/80 m-0 mt-1" lang={lang}>
-                  {t(row.data.detail, locale)}
-                </p>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-
-      <p class="text-sm text-lam-deep m-0 mt-6 pt-4 border-t border-rule" lang={lang}>
-        {t(site.wear, locale)}
-      </p>
-    </article>
+  <!-- Sunday setup + upcoming events -->
+  <section class="page-wrap py-[var(--space-section)]" aria-label={t(copy.home.handoutLabel, locale)}>
+    <ScheduleSplit locale={locale} schedule={schedule} events={events} scheduleLink />
   </section>
 
   <section class="page-wrap pb-[var(--space-section)]" aria-labelledby="sunday-title">
@@ -147,39 +97,9 @@ function fmtDate(d: Date): string {
     </div>
   </section>
 
-  <section class="page-wrap py-[var(--space-section)]" aria-labelledby="events-title">
-    <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
-      <h2 id="events-title" class="text-2xl font-bold m-0" lang={lang}>
-        {t(copy.home.eventsTitle, locale)}
-      </h2>
-      <a class="text-sm font-semibold text-la" href={localePath(locale, "/schedule")}>
-        {t(copy.nav.schedule, locale)}
-      </a>
-    </div>
-
-    {
-      events.length === 0 ? (
-        <p class="text-lam m-0" lang={lang}>{t(copy.home.eventsEmpty, locale)}</p>
-      ) : (
-        <ul class="list-none m-0 p-0 divide-y divide-[color:var(--rule)]">
-          {events.map((event) => (
-            <li class="py-5">
-              <p class="text-sm font-semibold text-la m-0">{fmtDate(event.data.date)}</p>
-              <h3 class="text-lg font-bold m-0 mt-1" lang={lang}>{t(event.data.title, locale)}</h3>
-              <p class="text-sm text-lam m-0 mt-1" lang={lang}>
-                {t(event.data.time, locale)} · {t(event.data.place, locale)}
-              </p>
-              <p class="m-0 mt-2" lang={lang}>{t(event.data.summary, locale)}</p>
-            </li>
-          ))}
-        </ul>
-      )
-    }
-  </section>
-
   {
     announcements.length > 0 && (
-      <section class="page-wrap pb-[var(--space-section)]" aria-labelledby="announce-title">
+      <section class="page-wrap py-[var(--space-section)]" aria-labelledby="announce-title">
         <h2 id="announce-title" class="text-2xl font-bold m-0 mb-6" lang={lang}>
           {t(copy.home.announceTitle, locale)}
         </h2>

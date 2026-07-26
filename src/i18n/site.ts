@@ -5,7 +5,7 @@ export const DEFAULT_LOCALE: Locale = "en";
 export const site = {
   nameShort: "GĐPT Anôma",
   nameVi: "Gia Đình Phật Tử Anôma",
-  nameEn: "Vietnamese Buddhism Youth Association",
+  nameEn: "The Vietnamese Buddhist Youth Association",
   email: "gdptanoma@gmail.com",
   phoneDisplay: "(714) 555-0199",
   phoneTel: "+17145550199",
@@ -18,8 +18,8 @@ export const site = {
     vi: "14867 Spinning Ave.",
   },
   addressLines: {
-    en: ["Gardena, CA"],
-    vi: ["Gardena, CA"],
+    en: ["Gardena, CA 90249"],
+    vi: ["Gardena, CA 90249"],
   },
   sunday: {
     en: "Sundays · 9:00 AM–2:00 PM",
@@ -64,7 +64,7 @@ export const copy = {
   },
   home: {
     kicker: {
-      en: "Vietnamese Buddhism Youth Association · Gardena, CA",
+      en: "The Vietnamese Buddhist Youth Association · Gardena, CA",
       vi: "Gia Đình Phật Tử · Gardena, CA",
     },
     lead: {
@@ -107,6 +107,9 @@ export const copy = {
       en: "No dated events in the file yet. Check the Sunday handout or email the chapter.",
       vi: "Chưa có sự kiện trong tệp. Xem tờ lịch Chủ Nhật hoặc email đoàn.",
     },
+    eventsPrev: { en: "Previous", vi: "Trước" },
+    eventsNext: { en: "Next", vi: "Sau" },
+    eventsPage: { en: "Page", vi: "Trang" },
     announceTitle: { en: "Notes for families", vi: "Thông báo gia đình" },
     joinTitle: { en: "Show up once", vi: "Đến thử một buổi" },
     joinBody: {
@@ -141,15 +144,12 @@ export const copy = {
   schedulePage: {
     title: { en: "Schedule & events", vi: "Lịch sinh hoạt" },
     lead: {
-      en: "Weekly Sunday block first. Dated events below. Google Calendar sync appears when keys are set.",
-      vi: "Khối Chủ Nhật trước. Sự kiện có ngày ở dưới. Lịch Google hiện khi đã cấu hình khóa.",
+      en: "Weekly Sunday block first. Full 2026 chapter program below. Google Calendar sync appears when keys are set.",
+      vi: "Khối Chủ Nhật trước. Chương trình Anôma năm 2026 ở dưới. Lịch Google hiện khi đã cấu hình khóa.",
     },
     calendarTitle: { en: "From Google Calendar", vi: "Từ Google Calendar" },
-    calendarEmpty: {
-      en: "Calendar feed is not connected. Use the events list above, or set GOOGLE_CALENDAR_API_KEY and GOOGLE_CALENDAR_ID.",
-      vi: "Chưa nối lịch Google. Dùng danh sách ở trên, hoặc đặt GOOGLE_CALENDAR_API_KEY và GOOGLE_CALENDAR_ID.",
-    },
   },
+
   teamPage: {
     title: { en: "Leaders", vi: "Huynh trưởng" },
     lead: {
@@ -193,8 +193,8 @@ export const copy = {
   },
   footer: {
     mission: {
-      en: "GĐPT Anôma meets Sundays, 9:00 AM–2:00 PM at 14867 Spinning Ave., Gardena, CA.",
-      vi: "GĐPT Anôma sinh hoạt Chủ Nhật, 9:00 sáng–2:00 chiều tại 14867 Spinning Ave., Gardena, CA.",
+      en: "GĐPT Anôma meets Sundays, 9:00 AM–2:00 PM at 14867 Spinning Ave., Gardena, CA 90249.",
+      vi: "GĐPT Anôma sinh hoạt Chủ Nhật, 9:00 sáng–2:00 chiều tại 14867 Spinning Ave., Gardena, CA 90249.",
     },
   },
 } as const;

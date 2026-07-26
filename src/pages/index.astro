@@ -13,9 +13,16 @@ const [schedule, nganh, events, announcements] = await Promise.all([
   getCollection("announcements"),
 ]);
 
+const startOfToday = new Date();
+startOfToday.setUTCHours(0, 0, 0, 0);
+
 schedule.sort((a, b) => a.data.order - b.data.order);
 nganh.sort((a, b) => a.data.order - b.data.order);
 events.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+const upcomingEvents = events.filter((event) => {
+  const end = event.data.endDate ?? event.data.date;
+  return end.valueOf() >= startOfToday.valueOf();
+});
 announcements.sort((a, b) => {
   if (a.data.pinned !== b.data.pinned) return a.data.pinned ? -1 : 1;
   return b.data.date.valueOf() - a.data.date.valueOf();
@@ -24,14 +31,14 @@ announcements.sort((a, b) => {
 
 <Layout
   title={`${site.nameShort} — Sundays 9:00 AM`}
-  description="GĐPT Anôma — Vietnamese Buddhism Youth Association. Sundays 9:00 AM–2:00 PM at 14867 Spinning Ave., Gardena, CA."
+  description="GĐPT Anôma — The Vietnamese Buddhist Youth Association. Sundays 9:00 AM–2:00 PM at 14867 Spinning Ave., Gardena, CA 90249."
   locale={locale}
 >
   <Home
     locale={locale}
     schedule={schedule}
     nganh={nganh}
-    events={events}
+    events={upcomingEvents}
     announcements={announcements}
   />
 </Layout>
