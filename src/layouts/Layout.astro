@@ -20,7 +20,10 @@ const pathname = Astro.url.pathname;
 const locale = Astro.props.locale ?? localeFromPath(pathname);
 const {
   title,
-  description = `${site.nameShort} — ${t(site.sunday, locale)}`,
+  description =
+    locale === "vi"
+      ? "GĐPT Anôma là đơn vị Gia Đình Phật Tử tại Văn Hạnh Foundation ở Gardena. Các em lớn lên với Bi–Trí–Dũng qua tập hợp, Phật pháp, và giờ ngành mỗi Chủ Nhật."
+      : "GĐPT Anôma is a Vietnamese Buddhist youth chapter at Văn Hạnh Foundation in Gardena. Kids grow with Bi–Trí–Dũng through Sunday formation, Phật pháp, and ngành activities.",
 } = Astro.props;
 
 const nav = [
@@ -91,6 +94,9 @@ const htmlLang = locale === "vi" ? "vi" : "en";
           <span class="min-w-0">
             <span class="block font-bold text-lam-deep text-lg leading-none truncate">
               {site.nameShort}
+            </span>
+            <span class="header-brand-sub block text-xs text-lam mt-1 truncate">
+              Văn Hạnh Foundation
             </span>
           </span>
         </a>
