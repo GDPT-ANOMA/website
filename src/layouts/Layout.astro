@@ -92,16 +92,10 @@ const htmlLang = locale === "vi" ? "vi" : "en";
             <span class="block font-bold text-lam-deep text-lg leading-none truncate">
               {site.nameShort}
             </span>
-            <span
-              class="header-brand-sub block text-xs text-lam mt-1 truncate"
-              lang="vi"
-            >
-              {locale === "vi" ? site.nameEn : site.nameVi}
-            </span>
           </span>
         </a>
 
-        <nav class="header-nav hidden lg:flex items-center gap-3" aria-label="Primary">
+        <nav class="header-nav hidden lg:grid" aria-label="Primary">
           {
             nav.map((item) => (
               <a

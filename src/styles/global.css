@@ -360,6 +360,10 @@
 
   .header-nav {
     justify-self: center;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(7.25rem, 1fr);
+    align-items: center;
+    gap: 0.25rem;
   }
 
   .header-end {
@@ -379,7 +383,7 @@
 
   .header-action {
     min-height: 2.75rem;
-    min-width: 5.5rem;
+    min-width: 7.5rem;
     padding-inline: 0.75rem;
     box-sizing: border-box;
   }
@@ -476,6 +480,13 @@
     justify-content: center;
     text-align: center;
     box-sizing: border-box;
+    min-height: 2.5rem;
+    padding-inline: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .header-nav .nav-link {
+    width: 100%;
   }
 
   .nav-link[aria-current="page"] {
