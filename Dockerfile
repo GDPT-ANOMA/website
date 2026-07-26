@@ -10,10 +10,7 @@ RUN bun install --frozen-lockfile
 FROM base AS build
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# Astro inlines import.meta.env at build time — mount .env as a secret, don't COPY it
-RUN --mount=type=secret,id=env,target=/app/.env \
-	bun run build
+RUN bun run build
 
 FROM base AS production-deps
 COPY package.json bun.lock ./

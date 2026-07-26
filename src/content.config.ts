@@ -1,6 +1,5 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
-import { googleCalendarLoader } from "./loaders/googleCalendar";
 
 const localeString = z.object({
   en: z.string(),
@@ -50,19 +49,9 @@ const schedule = defineCollection({
   }),
 });
 
-const calendarEvents = defineCollection({
-  loader: googleCalendarLoader({
-    apiKey: import.meta.env.GOOGLE_CALENDAR_API_KEY,
-    calendarId: import.meta.env.GOOGLE_CALENDAR_ID,
-    maxResults: 100,
-    includePastEvents: false,
-  }),
-});
-
 export const collections = {
   nganh,
   events,
   announcements,
   schedule,
-  "calendar-events": calendarEvents,
 };

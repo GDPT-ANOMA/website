@@ -1,8 +1,9 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import ScheduleSplit from "../../components/ScheduleSplit.astro";
 import Layout from "../../layouts/Layout.astro";
 import { copy, site, t } from "../../i18n/site";
+import { fetchGoogleCalendarEvents } from "../../lib/googleCalendar";
 
 const locale = "vi" as const;
 const lang = "vi";
@@ -13,13 +14,7 @@ const schedule = (await getCollection("schedule")).sort(
 const events = (await getCollection("events")).sort(
   (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
 );
-
-let calendar: CollectionEntry<"calendar-events">[] = [];
-try {
-  calendar = await getCollection("calendar-events");
-} catch {
-  calendar = [];
-}
+const calendar = await fetchGoogleCalendarEvents({ maxResults: 100 });
 ---
 
 <Layout title={`Lịch — ${site.nameShort}`} locale={locale}>
@@ -37,12 +32,12 @@ try {
           <h2 class="text-xl font-bold m-0 mb-3" lang={lang}>{t(copy.schedulePage.calendarTitle, locale)}</h2>
           <ul class="list-none m-0 p-0 divide-y divide-[color:var(--rule)]">
             {calendar.slice(0, 12).map((ev) => {
-              const start = ev.data.start.dateTime || ev.data.start.date || "";
+              const start = ev.start.dateTime || ev.start.date || "";
               return (
                 <li class="py-3">
                   <p class="text-sm text-la font-semibold m-0">{start}</p>
-                  <p class="font-bold m-0 mt-1">{ev.data.summary}</p>
-                  {ev.data.location && <p class="text-sm text-lam m-0 mt-1">{ev.data.location}</p>}
+                  <p class="font-bold m-0 mt-1">{ev.summary}</p>
+                  {ev.location && <p class="text-sm text-lam m-0 mt-1">{ev.location}</p>}
                 </li>
               );
             })}
