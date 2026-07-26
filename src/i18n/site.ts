@@ -11,11 +11,12 @@ export const site = {
     vi: "Quỹ Vạn Hạnh",
   },
   email: "gdptanoma@gmail.com",
-  phoneDisplay: "(714) 555-0199",
-  phoneTel: "+17145550199",
+  /** No public chapter phone on file — email only. Do not invent a number. */
+  phoneDisplay: "",
+  phoneTel: "",
   textHint: {
     en: "Text the chapter lead with your child’s name and age.",
-    vi: "Nhắn đoàn trưởng: tên + tuổi của con.",
+    vi: "Nhắn đoàn trưởng: ghi tên và tuổi của con.",
   },
   address: {
     en: "14867 Spinning Ave.",
@@ -31,7 +32,7 @@ export const site = {
   },
   wear: {
     en: "Members wear the blue uniform (áo lam). Guests: neat clothes, closed-toe shoes, water bottle.",
-    vi: "Đoàn sinh mặc áo lam. Khách: quần áo gọn, giày kín mũi, mang nước.",
+    vi: "Đoàn sinh mặc áo lam. Khách: quần áo gọn gàng, giày kín mũi, mang nước.",
   },
 } as const;
 
@@ -73,11 +74,11 @@ export const copy = {
     },
     lead: {
       en: "A Sunday program for Vietnamese-American kids: formation, Buddhist teachings, and age-group time.",
-      vi: "Sinh hoạt Chủ Nhật cho các em Việt tại Mỹ: tập hợp, Phật pháp, và giờ ngành.",
+      vi: "Sinh hoạt Chủ Nhật cho các em Việt Mỹ: tập hợp, Phật pháp, và giờ ngành.",
     },
     photoAlt: {
       en: "GĐPT Anôma members in blue uniforms with the chapter banner",
-      vi: "Đoàn sinh GĐPT Anôma mặc áo lam cùng bảng hiệu đoàn",
+      vi: "Đoàn sinh GĐPT Anôma mặc áo lam cùng biểu ngữ đoàn",
     },
     handoutLabel: {
       en: "Sunday handout",
@@ -85,11 +86,11 @@ export const copy = {
     },
     handoutTitle: {
       en: "Sunday schedule",
-      vi: "Tờ lịch Chủ Nhật",
+      vi: "Lịch Chủ Nhật",
     },
     handoutSub: {
       en: "Same rhythm most weeks. Special days get announced the Sunday before.",
-      vi: "Nhịp thường lệ hầu hết các tuần. Ngày đặc biệt sẽ báo Chủ Nhật trước.",
+      vi: "Nhịp thường lệ hầu hết các tuần. Ngày đặc biệt sẽ báo trước vào Chủ Nhật trước đó.",
     },
     sundayTitle: {
       en: "What a child does on Sunday",
@@ -99,26 +100,26 @@ export const copy = {
       en: "They line up, move a little, then spend the morning in their age group. Not a lecture hall. Younger kids sing and play; teens dig into lessons and skills. Parents can wait in the hall or help when asked.",
       vi: "Tập hợp, vận động nhẹ, rồi sinh hoạt theo ngành. Không phải ngồi nghe giảng dài. Em nhỏ hát và chơi; thiếu niên học và luyện kỹ năng. Phụ huynh có thể ngồi hội trường hoặc phụ khi được nhờ.",
     },
-    wearTitle: { en: "What to wear", vi: "Mặc gì" },
+    wearTitle: { en: "What to wear", vi: "Trang phục" },
     nganhTitle: { en: "Age groups", vi: "Ngành" },
     nganhLead: {
       en: "Three age groups — Đồng (Oanh Vũ), Thiếu, Thanh — plus the adult leaders. Bi – Trí – Dũng is shared; Sunday looks different by group.",
-      vi: "Ba ngành theo tuổi — Đồng (Oanh Vũ), Thiếu, Thanh — cùng Ban Huynh Trưởng. Bi – Trí – Dũng chung; từng ngành sinh hoạt khác nhau.",
+      vi: "Ba ngành theo tuổi — Đồng (Oanh Vũ), Thiếu, Thanh — cùng Ban Huynh trưởng. Bi – Trí – Dũng chung; từng ngành sinh hoạt khác nhau.",
     },
 
     eventsTitle: { en: "Coming up", vi: "Sắp tới" },
     eventsEmpty: {
       en: "No dated events in the file yet. Check the Sunday handout or email the chapter.",
-      vi: "Chưa có sự kiện trong tệp. Xem tờ lịch Chủ Nhật hoặc email đoàn.",
+      vi: "Chưa có sự kiện nào được đăng. Xem tờ lịch Chủ Nhật hoặc email đoàn.",
     },
     eventsPrev: { en: "Previous", vi: "Trước" },
     eventsNext: { en: "Next", vi: "Sau" },
     eventsPage: { en: "Page", vi: "Trang" },
-    announceTitle: { en: "Notes for families", vi: "Thông báo gia đình" },
+    announceTitle: { en: "Notes for families", vi: "Thông báo cho gia đình" },
     joinTitle: { en: "Show up once", vi: "Đến thử một buổi" },
     joinBody: {
       en: "Bring your child a little before 9:00. Tell the door lead it’s your first Sunday. Stay through the morning; pick up by 2:00. Ask about fees, uniforms, and which age group fits.",
-      vi: "Đưa các em tới trước 9:00. Nói với anh chị cửa là Chủ Nhật đầu. Ở lại buổi sáng; đón trước 2:00. Hỏi lệ phí, áo lam, và ngành phù hợp.",
+      vi: "Đưa các em tới trước 9:00. Nói với anh chị trực cửa đây là Chủ Nhật đầu. Ở lại buổi sáng; đón trước 2:00. Hỏi lệ phí, áo lam, và ngành phù hợp.",
     },
   },
   about: {
@@ -158,7 +159,7 @@ export const copy = {
     title: { en: "Leaders", vi: "Huynh trưởng" },
     lead: {
       en: "Teams that run Sundays. Email Anh Hiệp for anything — forms, absences, pickup changes.",
-      vi: "Các tổ điều hành Chủ Nhật. Mọi việc — giấy tờ, báo nghỉ, đổi người đón — email Anh Hiệp.",
+      vi: "Các ban phụ trách Chủ Nhật. Mọi việc — giấy tờ, báo nghỉ, đổi người đón — email Anh Hiệp.",
     },
     poc: { en: "Point of contact", vi: "Liên hệ chính" },
     pocNote: {
@@ -177,25 +178,25 @@ export const copy = {
       vi: "Ghi danh, báo nghỉ, hoặc đổi người đón: nên email. Ghi tên các em ở tiêu đề.",
     },
     formName: { en: "Your name", vi: "Họ tên" },
-    formEmail: { en: "Email", vi: "Thư điện tử" },
+    formEmail: { en: "Email", vi: "Email" },
     formSubject: { en: "Subject", vi: "Tiêu đề" },
     formMessage: { en: "Message", vi: "Nội dung" },
     formSubmit: { en: "Send", vi: "Gửi" },
     formSending: { en: "Sending…", vi: "Đang gửi…" },
     formOk: {
       en: "Sent. We will reply from the chapter email.",
-      vi: "Đã gửi. Đoàn sẽ trả lời từ email chương trình.",
+      vi: "Đã gửi. Đoàn sẽ trả lời từ email đoàn.",
     },
     formErr: {
       en: "Could not send. Email gdptanoma@gmail.com directly.",
-      vi: "Gửi không được. Gửi thẳng tới gdptanoma@gmail.com.",
+      vi: "Gửi không được. Xin gửi thẳng tới gdptanoma@gmail.com.",
     },
   },
   notFound: {
     title: { en: "Page not found", vi: "Không tìm thấy trang" },
     body: {
       en: "That URL is not on this site. Go home for Sunday times, or open Schedule for events.",
-      vi: "Không có địa chỉ này. Về trang chủ xem giờ Chủ Nhật, hoặc mở Lịch xem sự kiện.",
+      vi: "Không tìm thấy trang này. Về trang chủ xem giờ Chủ Nhật, hoặc mở Lịch xem sự kiện.",
     },
     home: { en: "Home", vi: "Trang chủ" },
     schedule: { en: "Schedule", vi: "Lịch" },

@@ -11,6 +11,6 @@ place:
   vi: Anôma · Gardena
 summary:
   en: Register for the first semester of the 2026 school year.
-  vi: Đăng ký cho niên khóa 2026 Kỳ 1.
+  vi: Đăng ký Kỳ 1 niên khóa 2026.
 featured: true
 ---

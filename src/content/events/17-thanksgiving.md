@@ -11,6 +11,6 @@ place:
   vi: Trung tâm đóng cửa
 summary:
   en: Center closed for Thanksgiving (Nov 26). Students off.
-  vi: Trung tâm đóng cửa nhân Lễ Tạ Ơn (26/11). Các em nghỉ học.
+  vi: Trung tâm đóng cửa nhân Lễ Tạ Ơn (26/11). Không có lớp Việt ngữ hay GĐPT Chủ Nhật này.
 featured: false
 ---

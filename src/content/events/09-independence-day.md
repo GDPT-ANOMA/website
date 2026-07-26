@@ -11,6 +11,6 @@ place:
   vi: Trung tâm đóng cửa
 summary:
   en: Center closed for Independence Day (July 4). Students off.
-  vi: Trung tâm đóng cửa nhân Lễ Độc Lập Mỹ (4/7). Các em nghỉ học.
+  vi: Trung tâm đóng cửa nhân Lễ Độc Lập Mỹ (4/7). Không có lớp Việt ngữ hay GĐPT Chủ Nhật này.
 featured: false
 ---

@@ -10,7 +10,7 @@ place:
   en: Park (location announced by chapter)
   vi: Công viên (địa điểm do đoàn thông báo)
 summary:
-  en: Anôma hosts Mid-Autumn Festival at the park, 3–8 PM.
-  vi: "Anôma tổ chức tại công viên từ 15:00 đến 20:00."
+  en: "Anôma hosts Mid-Autumn Festival at the park, 3–8 PM. (Lunar calendar: Rằm tháng 8 — Sept 25, 2026.)"
+  vi: "Anôma tổ chức tại công viên từ 15:00 đến 20:00. (Ngày lễ âm lịch: Rằm tháng 8 — 25/09/2026.)"
 featured: true
 ---

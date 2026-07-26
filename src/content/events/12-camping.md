@@ -1,7 +1,7 @@
 ---
 title:
   en: Teen and leader camping
-  vi: Trại cắm trại Thanh · Thiếu · Huynh trưởng
+  vi: Trại Thanh · Thiếu · Huynh trưởng
 date: 2026-08-14
 endDate: 2026-08-16
 time:
@@ -12,6 +12,6 @@ place:
   vi: Đoàn sẽ thông báo địa điểm
 summary:
   en: Overnight camping for teens and leaders.
-  vi: Trại cắm trại cho Thanh, Thiếu và Huynh trưởng.
+  vi: Cắm trại qua đêm cho Thanh, Thiếu và Huynh trưởng.
 featured: true
 ---

@@ -11,6 +11,6 @@ place:
   vi: Trung tâm đóng cửa
 summary:
   en: Center closed — students off. No Vietnamese class or GĐPT this Sunday.
-  vi: Trung tâm đóng cửa — các em nghỉ học.
+  vi: Trung tâm đóng cửa — không có lớp Việt ngữ hay GĐPT Chủ Nhật này.
 featured: false
 ---
