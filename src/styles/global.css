@@ -42,6 +42,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    background: var(--paper);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -251,6 +252,132 @@
 
   .lang-slider-opt[aria-current="true"] {
     color: #fff;
+  }
+
+  .lang-word {
+    display: inline;
+  }
+
+  /* Kill every VT layer — Astro uses named scopes, not just root.
+     plus-lighter blend is what flashes white. */
+  html.lang-morphing::view-transition-group(*),
+  html.lang-morphing::view-transition-old(*),
+  html.lang-morphing::view-transition-new(*),
+  html.lang-morphing::view-transition-image-pair(*) {
+    animation: none !important;
+    mix-blend-mode: normal !important;
+  }
+
+  html.lang-morphing::view-transition-old(root),
+  html.lang-morphing::view-transition-new(root) {
+    animation: none !important;
+    mix-blend-mode: normal !important;
+    height: 100%;
+    overflow: clip;
+  }
+
+  /* Park copy only — paper, images, header chrome, slider stay painted */
+  html.lang-morph-pre .site-header :where(
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      li,
+      dt,
+      dd,
+      a,
+      span,
+      strong,
+      em,
+      b,
+      i,
+      small,
+      label,
+      button,
+      summary,
+      figcaption,
+      blockquote,
+      td,
+      th,
+      time
+    ):not(.lang-slider, .lang-slider *),
+  html.lang-morph-pre #main :where(
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      li,
+      dt,
+      dd,
+      a,
+      span,
+      strong,
+      em,
+      b,
+      i,
+      small,
+      label,
+      button,
+      summary,
+      figcaption,
+      blockquote,
+      td,
+      th,
+      time
+    ),
+  html.lang-morph-pre footer :where(
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      li,
+      dt,
+      dd,
+      a,
+      span,
+      strong,
+      em,
+      b,
+      i,
+      small,
+      label,
+      button,
+      summary,
+      figcaption,
+      blockquote,
+      td,
+      th,
+      time
+    ) {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: none !important;
+  }
+
+  html.lang-morph-words .lang-word {
+    opacity: 0;
+  }
+
+  html.lang-morphing .handout {
+    animation: none !important;
+  }
+
+  #lang-morph-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 25;
+    pointer-events: none;
+    background: transparent;
   }
 
   .nav-link[aria-current="page"] {

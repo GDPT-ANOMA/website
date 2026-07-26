@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import {
   copy,
@@ -49,7 +50,7 @@ const htmlLang = locale === "vi" ? "vi" : "en";
 ---
 
 <!doctype html>
-<html lang={htmlLang}>
+<html lang={htmlLang} transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -65,6 +66,7 @@ const htmlLang = locale === "vi" ? "vi" : "en";
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
       rel="stylesheet"
     />
+    <ClientRouter />
     <title>{title}</title>
   </head>
   <body>
@@ -113,6 +115,7 @@ const htmlLang = locale === "vi" ? "vi" : "en";
           <div
             class="lang-slider"
             data-locale={locale}
+            transition:persist="lang-slider"
             role="group"
             aria-label={locale === "vi" ? "Ngôn ngữ" : "Language"}
           >
@@ -211,6 +214,7 @@ const htmlLang = locale === "vi" ? "vi" : "en";
         © {new Date().getFullYear()} {site.nameShort}
       </div>
     </footer>
+    <script is:inline src="/lang-morph.js?v=3"></script>
   </body>
 </html>
 

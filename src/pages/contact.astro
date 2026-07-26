@@ -64,7 +64,7 @@ const lang = "en";
   </main>
 </Layout>
 
-<script is:inline define:vars={{
+<script is:inline data-astro-rerun define:vars={{
     okMsg: t(copy.contactPage.formOk, locale),
     errMsg: t(copy.contactPage.formErr, locale),
     sendingMsg: t(copy.contactPage.formSending, locale),
@@ -74,38 +74,41 @@ const lang = "en";
   const form = document.getElementById("contact-form");
   const status = document.getElementById("contact-status");
   const submit = document.getElementById("contact-submit");
-  if (!form || !status || !submit) throw new Error("Contact form missing");
+  if (!form || !status || !submit) {
+    // Form not on this page (or already torn down during a transition).
+  } else if (!form.dataset.bound) {
+    form.dataset.bound = "1";
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      submit.setAttribute("disabled", "true");
+      submit.textContent = sendingMsg;
+      status.hidden = true;
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const data = new FormData(form);
-    submit.setAttribute("disabled", "true");
-    submit.textContent = sendingMsg;
-    status.hidden = true;
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: String(data.get("name") || "").trim(),
-          lastName: "",
-          email: String(data.get("email") || "").trim(),
-          subject: String(data.get("subject") || "").trim(),
-          message: String(data.get("message") || "").trim(),
-        }),
-      });
-      status.hidden = false;
-      status.textContent = res.ok ? okMsg : errMsg;
-      status.className = res.ok ? "text-sm m-0 text-la" : "text-sm m-0 text-lam-deep";
-      if (res.ok) form.reset();
-    } catch {
-      status.hidden = false;
-      status.textContent = errMsg;
-      status.className = "text-sm m-0 text-lam-deep";
-    } finally {
-      submit.removeAttribute("disabled");
-      submit.textContent = submitLabel;
-    }
-  });
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName: String(data.get("name") || "").trim(),
+            lastName: "",
+            email: String(data.get("email") || "").trim(),
+            subject: String(data.get("subject") || "").trim(),
+            message: String(data.get("message") || "").trim(),
+          }),
+        });
+        status.hidden = false;
+        status.textContent = res.ok ? okMsg : errMsg;
+        status.className = res.ok ? "text-sm m-0 text-la" : "text-sm m-0 text-lam-deep";
+        if (res.ok) form.reset();
+      } catch {
+        status.hidden = false;
+        status.textContent = errMsg;
+        status.className = "text-sm m-0 text-lam-deep";
+      } finally {
+        submit.removeAttribute("disabled");
+        submit.textContent = submitLabel;
+      }
+    });
+  }
 </script>
