@@ -81,21 +81,21 @@ const htmlLang = locale === "vi" ? "vi" : "en";
       Skip to content
     </a>
 
-    <header class="site-header">
-      <div class="page-wrap header-bar py-3">
-        <a href={localePath(locale)} class="header-brand flex items-center gap-3 min-w-0">
+    <header class="site-header" data-site-header>
+      <div class="page-wrap header-bar">
+        <a href={localePath(locale)} class="header-brand flex items-center gap-2.5 sm:gap-3 min-w-0">
           <img
             src="/logos/gdpt.svg"
             alt=""
             width="40"
             height="40"
-            class="shrink-0"
+            class="header-brand-mark shrink-0"
           />
           <span class="min-w-0">
-            <span class="block font-bold text-lam-deep text-lg leading-none truncate">
+            <span class="block font-bold text-lam-deep text-base sm:text-lg leading-none truncate">
               {site.nameShort}
             </span>
-            <span class="header-brand-sub block text-xs text-lam mt-1 truncate">
+            <span class="header-brand-sub block text-xs text-lam mt-0.5 sm:mt-1 truncate">
               Văn Hạnh Foundation
             </span>
           </span>
@@ -115,7 +115,7 @@ const htmlLang = locale === "vi" ? "vi" : "en";
           }
         </nav>
 
-        <div class="header-end flex items-center justify-end gap-2 sm:gap-3">
+        <div class="header-end flex items-center justify-end gap-1.5 sm:gap-3">
           <div
             class="lang-slider"
             data-locale={locale}
@@ -149,30 +149,48 @@ const htmlLang = locale === "vi" ? "vi" : "en";
             {t(copy.cta.join, locale)}
           </a>
 
-          <details class="lg:hidden relative">
-            <summary class="btn btn-ghost header-action list-none cursor-pointer">
-              Menu
-            </summary>
-            <div
-              class="absolute right-0 mt-2 w-56 border border-rule bg-sen p-3 flex flex-col gap-2 shadow-sm"
-            >
-              {
-                nav.map((item) => (
-                  <a
-                    href={localePath(locale, item.href)}
-                    class="nav-link text-sm py-2 text-lam-deep"
-                    aria-current={isCurrent(item.href) ? "page" : undefined}
-                  >
-                    {t(item.label, locale)}
-                  </a>
-                ))
-              }
-              <a href={localePath(locale, "/contact")} class="btn btn-la mt-1 sm:hidden">
-                {t(copy.cta.join, locale)}
-              </a>
-            </div>
-          </details>
+          <button
+            type="button"
+            class="nav-toggle lg:hidden"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+            data-nav-toggle
+          >
+            <span class="sr-only">{locale === "vi" ? "Điều hướng" : "Navigation"}</span>
+            <span class="nav-toggle-bars" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
         </div>
+      </div>
+
+      <div
+        id="mobile-nav"
+        class="mobile-drawer lg:hidden"
+        data-mobile-drawer
+        hidden
+      >
+        <nav class="mobile-drawer-nav page-wrap" aria-label="Primary">
+          {
+            nav.map((item) => (
+              <a
+                href={localePath(locale, item.href)}
+                class="nav-link mobile-drawer-link text-lam-deep"
+                aria-current={isCurrent(item.href) ? "page" : undefined}
+              >
+                {t(item.label, locale)}
+              </a>
+            ))
+          }
+          <a
+            href={localePath(locale, "/contact")}
+            class="btn btn-la mobile-drawer-cta sm:hidden"
+          >
+            {t(copy.cta.join, locale)}
+          </a>
+        </nav>
       </div>
     </header>
 
@@ -217,12 +235,107 @@ const htmlLang = locale === "vi" ? "vi" : "en";
         © {new Date().getFullYear()} {site.nameShort}
       </div>
     </footer>
-    <script is:inline src="/lang-morph.js?v=10"></script>
+    <script is:inline src="/lang-morph.js?v=11"></script>
+    <script is:inline>
+      (function () {
+        if (window.__gdptNavInit) return;
+        window.__gdptNavInit = true;
+
+        function els() {
+          return {
+            header: document.querySelector("[data-site-header]"),
+            toggle: document.querySelector("[data-nav-toggle]"),
+            drawer: document.querySelector("[data-mobile-drawer]"),
+          };
+        }
+
+        function syncHeaderOffset(header) {
+          if (!(header instanceof HTMLElement)) return;
+          document.documentElement.style.setProperty(
+            "--header-offset",
+            header.offsetHeight + "px",
+          );
+        }
+
+        function setOpen(open) {
+          const { header, toggle, drawer } = els();
+          if (!(header instanceof HTMLElement) || !(toggle instanceof HTMLElement) || !(drawer instanceof HTMLElement)) {
+            return;
+          }
+
+          syncHeaderOffset(header);
+
+          if (open) {
+            header.setAttribute("data-nav-open", "");
+            drawer.hidden = false;
+            void drawer.offsetWidth;
+            drawer.classList.add("is-open");
+            toggle.setAttribute("aria-expanded", "true");
+            document.body.classList.add("nav-locked");
+          } else {
+            header.removeAttribute("data-nav-open");
+            drawer.classList.remove("is-open");
+            toggle.setAttribute("aria-expanded", "false");
+            document.body.classList.remove("nav-locked");
+            const reduce =
+              window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (reduce) {
+              drawer.hidden = true;
+            } else {
+              window.setTimeout(function () {
+                if (!header.hasAttribute("data-nav-open")) drawer.hidden = true;
+              }, 400);
+            }
+          }
+        }
+
+        function onPageLoad() {
+          const { header } = els();
+          syncHeaderOffset(header);
+          setOpen(false);
+        }
+
+        document.addEventListener("click", function (e) {
+          const target = e.target instanceof Element ? e.target : null;
+          if (!target) return;
+
+          if (target.closest("[data-nav-toggle]")) {
+            const { header } = els();
+            setOpen(!(header instanceof HTMLElement && header.hasAttribute("data-nav-open")));
+            return;
+          }
+
+          if (target.closest("[data-mobile-drawer] a")) {
+            setOpen(false);
+          }
+        });
+
+        document.addEventListener("transitionend", function (e) {
+          const drawer = e.target;
+          if (!(drawer instanceof HTMLElement) || !drawer.hasAttribute("data-mobile-drawer")) return;
+          if (e.propertyName !== "transform") return;
+          const { header } = els();
+          if (!(header instanceof HTMLElement) || header.hasAttribute("data-nav-open")) return;
+          drawer.hidden = true;
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key !== "Escape") return;
+          const { header, toggle } = els();
+          if (!(header instanceof HTMLElement) || !header.hasAttribute("data-nav-open")) return;
+          setOpen(false);
+          if (toggle instanceof HTMLElement) toggle.focus();
+        });
+
+        window.addEventListener("resize", function () {
+          const { header } = els();
+          syncHeaderOffset(header);
+          if (window.matchMedia("(min-width: 1024px)").matches) setOpen(false);
+        });
+
+        onPageLoad();
+        document.addEventListener("astro:page-load", onPageLoad);
+      })();
+    </script>
   </body>
 </html>
-
-<style>
-  summary::-webkit-details-marker {
-    display: none;
-  }
-</style>

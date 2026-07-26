@@ -194,7 +194,7 @@
 
   function equalizeNav(newDoc) {
     equalizeNavGroup('header nav[aria-label="Primary"] .nav-link', newDoc);
-    equalizeNavGroup("header details .nav-link", newDoc);
+    equalizeNavGroup(".mobile-drawer .nav-link", newDoc);
     lockPairWidth(
       ".header-end .btn.header-action",
       newDoc,
