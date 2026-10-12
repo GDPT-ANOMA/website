@@ -2,7 +2,7 @@
 title:
   en: Closing ceremony
   vi: Lễ Bế Giảng
-date: 2026-12-20
+date: 2026-12-13
 time:
   en: During Sunday program
   vi: Trong giờ sinh hoạt Chủ Nhật

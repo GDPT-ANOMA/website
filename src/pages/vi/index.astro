@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Home from "../../components/home/Home.astro";
 import Layout from "../../layouts/Layout.astro";
+import { upcomingEvents } from "../../lib/events";
 import { site } from "../../i18n/site";
 
 const locale = "vi" as const;
@@ -13,16 +14,8 @@ const [schedule, nganh, events, announcements] = await Promise.all([
   getCollection("announcements"),
 ]);
 
-const startOfToday = new Date();
-startOfToday.setUTCHours(0, 0, 0, 0);
-
 schedule.sort((a, b) => a.data.order - b.data.order);
 nganh.sort((a, b) => a.data.order - b.data.order);
-events.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
-const upcomingEvents = events.filter((event) => {
-  const end = event.data.endDate ?? event.data.date;
-  return end.valueOf() >= startOfToday.valueOf();
-});
 announcements.sort((a, b) => {
   if (a.data.pinned !== b.data.pinned) return a.data.pinned ? -1 : 1;
   return b.data.date.valueOf() - a.data.date.valueOf();
@@ -38,7 +31,7 @@ announcements.sort((a, b) => {
     locale={locale}
     schedule={schedule}
     nganh={nganh}
-    events={upcomingEvents}
+    events={upcomingEvents(events)}
     announcements={announcements}
   />
 </Layout>
