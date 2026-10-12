@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import ScheduleSplit from "../components/ScheduleSplit.astro";
 import Layout from "../layouts/Layout.astro";
 import { copy, site, t } from "../i18n/site";
+import { upcomingEvents } from "../lib/events";
 import { fetchGoogleCalendarEvents } from "../lib/googleCalendar";
 
 const locale = "en" as const;
@@ -11,9 +12,7 @@ const lang = "en";
 const schedule = (await getCollection("schedule")).sort(
   (a, b) => a.data.order - b.data.order,
 );
-const events = (await getCollection("events")).sort(
-  (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
-);
+const events = upcomingEvents(await getCollection("events"));
 const calendar = await fetchGoogleCalendarEvents({ maxResults: 100 });
 ---
 
