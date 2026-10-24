@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM oven/bun:1.2-alpine AS base
+FROM oven/bun:1.4.4-alpine AS base
 WORKDIR /app
 
 FROM base AS deps
@@ -16,7 +16,7 @@ FROM base AS production-deps
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --production
 
-FROM oven/bun:1.2-alpine AS runtime
+FROM oven/bun:1.4.4-alpine AS runtime
 WORKDIR /app
 
 ENV NODE_ENV=production \
