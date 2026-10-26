@@ -16,7 +16,9 @@ FROM base AS production-deps
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --production
 
-FROM oven/bun:1.4.4-alpine AS runtime
+# Serve with Node: Bun cannot load sharp's native binding on every host
+# (Nixpacks' Bun 1.3 fails to dlopen it), and @astrojs/node targets Node.
+FROM node:24-alpine AS runtime
 WORKDIR /app
 
 ENV NODE_ENV=production \
@@ -34,6 +36,6 @@ USER app
 EXPOSE 4321
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-	CMD bun -e "fetch('http://127.0.0.1:'+(process.env.PORT||4321)).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+	CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||4321)).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 
-CMD ["bun", "./dist/server/entry.mjs"]
+CMD ["node", "./dist/server/entry.mjs"]

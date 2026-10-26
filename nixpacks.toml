@@ -2,3 +2,7 @@
 nixPkgs = ["nodejs_24", "bun"]
 aptPkgs = ["curl", "wget"]
 
+# Bun from nixpkgs cannot dlopen sharp, which breaks /_image (the hero photo).
+[start]
+cmd = "node ./dist/server/entry.mjs"
+
